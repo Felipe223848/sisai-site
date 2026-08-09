@@ -85,7 +85,17 @@ img,svg{display:block;max-width:100%}
   border-radius:var(--r-xs);
 }
 
-.wrap{max-width:71.25rem;margin:0 auto;padding:0 1.5rem}
+/* viewport-fit=cover deixa o conteúdo ir sob o notch: o padding tem que
+   respeitar a safe area, senão em paisagem o texto entra embaixo da câmera */
+.wrap{
+  max-width:71.25rem;margin:0 auto;
+  padding-left:max(1.5rem,env(safe-area-inset-left));
+  padding-right:max(1.5rem,env(safe-area-inset-right));
+}
+
+/* o realce cinza padrão do toque briga com a animação de press que já temos */
+a,button,input,select,[data-press]{-webkit-tap-highlight-color:transparent}
+a,button{touch-action:manipulation}
 section{padding:var(--sect) 0}
 [id]{scroll-margin-top:6rem}
 
@@ -204,7 +214,8 @@ nav .links a:not(.btn){
   letter-spacing:-.008em;transition:color .18s var(--ease-out);
 }
 nav .links a:not(.btn):hover{color:var(--label)}
-nav .links .btn{padding:.5625rem 1.125rem;font-size:.875rem}
+/* 2.75rem = 44px, o mínimo confortável para o dedo */
+nav .links .btn{padding:.5625rem 1.125rem;font-size:.875rem;min-height:2.75rem}
 @media(max-width:52rem){nav .links a:not(.btn){display:none}}
 
 /* ---------- HERO ---------- */
@@ -265,6 +276,8 @@ nav .links .btn{padding:.5625rem 1.125rem;font-size:.875rem}
 }
 
 .stage-3d{position:relative;z-index:2;align-self:stretch;min-height:22rem}
+/* slot do chat no hero: vazio no desktop, preenchido pelo JS no celular */
+.stage-demo{display:none}
 #spline3d{
   position:absolute;inset:0;width:100%;height:100%;
   opacity:0;transition:opacity .8s var(--ease-out);
@@ -286,8 +299,21 @@ nav .links .btn{padding:.5625rem 1.125rem;font-size:.875rem}
 
 @media(max-width:57.5rem){
   .stage{grid-template-columns:1fr;min-height:0}
-  .stage-3d{min-height:17rem;order:-1}
+  /* no celular o robô dá lugar à prova: o WhatsApp da Estela vendendo */
+  .stage-3d{display:none}
+  .stage-demo{display:block;padding:0 clamp(1.5rem,4vw,3.5rem) clamp(2rem,5vw,3rem)}
+  .stage-demo .demo-fone{margin-top:0}
+  .stage-copy{padding-bottom:1.75rem}
   .spotlight{display:none}
+  /* o chat vive no hero: dentro do card escuro os tokens já estão invertidos */
+  .stage .chat-tag{background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.16);color:rgba(235,235,245,.75)}
+}
+@media(max-width:35rem){
+  /* 6 seções x 160px de respiro é rolagem demais no polegar */
+  :root{--sect:3.75rem}
+  .phone .screen{height:28rem}
+  .stats{gap:1.25rem}
+  .stat span{max-width:none}
 }
 
 .stats{display:flex;gap:clamp(1.5rem,3.5vw,2.75rem);margin-top:2.75rem;flex-wrap:wrap}
@@ -622,9 +648,48 @@ form .btn{margin-top:.5rem}
 .catmock .cf{text-align:center;font-size:.65625rem;color:var(--label-3);padding:0 0 .875rem}
 
 /* ---------- FOOTER ---------- */
-footer{border-top:1px solid var(--sep);padding:2.5rem 0;background:var(--elev-1)}
+footer{
+  border-top:1px solid var(--sep);background:var(--elev-1);
+  padding:2.5rem 0 max(2.5rem,env(safe-area-inset-bottom));
+}
 footer .wrap{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1.25rem}
 footer p{font-size:.84375rem;color:var(--label-3);line-height:1.5}
+
+/* ---------- BARRA FIXA DE WHATSAPP (só celular) ----------
+   Entra por spring depois que o hero sai da tela: não rouba a primeira
+   impressão, mas fica ao alcance do polegar no resto da rolagem. */
+.wa-bar{
+  display:none;
+  position:fixed;left:0;right:0;bottom:0;z-index:70;
+  padding:.75rem max(1rem,env(safe-area-inset-left))
+          max(.75rem,env(safe-area-inset-bottom)) max(1rem,env(safe-area-inset-right));
+  background:rgba(255,255,255,.84);
+  backdrop-filter:blur(24px) saturate(180%);
+  -webkit-backdrop-filter:blur(24px) saturate(180%);
+  box-shadow:0 -1px 0 var(--sep),0 -10px 30px rgba(0,0,0,.07);
+  transform:translateY(110%);
+  will-change:transform;
+}
+.btn-wa{background:var(--wa);gap:.625rem}
+.btn-wa:hover{background:#0C6B60}
+.btn-wa .ic{width:1.25rem;height:1.25rem;flex-shrink:0}
+@media(max-width:57.5rem){
+  .wa-bar{display:block}
+  /* espaço pra barra não cobrir o fim da página */
+  footer{padding-bottom:calc(max(2.5rem,env(safe-area-inset-bottom)) + 4.25rem)}
+}
+@media(prefers-reduced-transparency:reduce){
+  .wa-bar{background:#fff;backdrop-filter:none;-webkit-backdrop-filter:none}
+}
+
+/* atalho pra quem não quer preencher formulário nenhum */
+.form-alt{
+  display:block;text-align:center;margin-top:.875rem;
+  font-size:.875rem;font-weight:600;letter-spacing:-.008em;
+  color:var(--accent-text);text-decoration:none;
+  padding:.625rem;min-height:2.75rem;
+}
+.form-alt:hover{text-decoration:underline}
 
 /* ---------- REVELAÇÃO AO ROLAR ----------
    Entrada e saída pelo mesmo eixo; escalonamento por índice. */
@@ -676,6 +741,9 @@ footer p{font-size:.84375rem;color:var(--label-3);line-height:1.5}
   <symbol id="ic-check" viewBox="0 0 20 20">
     <path d="M4 10.5l4 4 8-9" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
   </symbol>
+  <symbol id="ic-wa" viewBox="0 0 24 24">
+    <path fill="currentColor" d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2zm0 1.67c2.2 0 4.27.86 5.83 2.42a8.19 8.19 0 0 1 2.41 5.82c0 4.54-3.7 8.24-8.24 8.24-1.48 0-2.93-.4-4.19-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.19 8.19 0 0 1-1.26-4.38c0-4.54 3.7-8.24 8.24-8.24zm-3.4 4.2c-.16 0-.42.06-.64.3-.22.24-.84.82-.84 2s.86 2.32.98 2.48c.12.16 1.7 2.6 4.12 3.64.58.25 1.03.4 1.38.51.58.18 1.11.16 1.53.1.47-.07 1.44-.59 1.64-1.16.2-.57.2-1.06.14-1.16-.06-.1-.22-.16-.46-.28-.24-.12-1.44-.71-1.66-.79-.22-.08-.38-.12-.54.12-.16.24-.62.79-.76.95-.14.16-.28.18-.52.06-.24-.12-1.02-.38-1.94-1.2-.72-.64-1.2-1.43-1.34-1.67-.14-.24-.02-.37.1-.49.11-.11.24-.28.36-.42.12-.14.16-.24.24-.4.08-.16.04-.3-.02-.42-.06-.12-.54-1.3-.74-1.78-.19-.46-.39-.4-.54-.41h-.46z"/>
+  </symbol>
 </svg>
 
 <nav>
@@ -713,6 +781,8 @@ footer p{font-size:.84375rem;color:var(--label-3);line-height:1.5}
         </div>
         <canvas id="spline3d" aria-hidden="true"></canvas>
       </div>
+      <!-- no celular o chat da Estela é realocado pra cá pelo JS -->
+      <div class="stage-demo" id="hero-demo"></div>
     </div>
     <div class="stats" data-reveal style="--i:4">
       <div class="stat"><b>5<em>s</em></b><span>para responder qualquer lead</span></div>
@@ -749,7 +819,7 @@ footer p{font-size:.84375rem;color:var(--label-3);line-height:1.5}
       <div class="step" data-reveal data-press style="--i:8"><div class="ico">📊</div><h4>Venda + dados</h4><p>Tudo registrado no CRM e visível no painel</p></div>
     </div>
 
-    <div class="demo-fone" data-reveal style="--i:9">
+    <div id="esteira-demo"><div class="demo-fone" id="estela-demo" data-reveal style="--i:9">
       <div class="phone">
         <div class="screen">
           <div class="chat-head">
@@ -763,7 +833,7 @@ footer p{font-size:.84375rem;color:var(--label-3);line-height:1.5}
         </div>
       </div>
       <div class="chat-tag"><span class="dot"></span> Estela vendendo às 23h47 de um domingo</div>
-    </div>
+    </div></div>
   </div>
 </section>
 
@@ -801,8 +871,11 @@ footer p{font-size:.84375rem;color:var(--label-3);line-height:1.5}
   <div class="wrap">
     <div class="sobre-foto" data-reveal>
       <picture>
-        <source type="image/webp" srcset="felipe.webp 1x, felipe@2x.webp 2x">
+        <source type="image/webp"
+                srcset="felipe-480.webp 480w, felipe.webp 900w, felipe@2x.webp 1800w"
+                sizes="(max-width: 53.75rem) min(24rem, 88vw), 34vw">
         <img src="felipe.jpg" width="900" height="900" loading="lazy" decoding="async"
+             sizes="(max-width: 53.75rem) min(24rem, 88vw), 34vw"
              alt="Felipe, fundador da SIS AI, sentado, de camisa polo preta com o logo da SIS AI bordado.">
       </picture>
     </div>
@@ -888,6 +961,9 @@ footer p{font-size:.84375rem;color:var(--label-3);line-height:1.5}
         <span class="err">Escolha uma faixa de estoque</span>
       </div>
       <button class="btn btn-block" type="submit" id="btnlead" data-press>Receber diagnóstico no WhatsApp</button>
+      <a class="form-alt" href="https://wa.me/5598985512253?text=Ol%C3%A1!%20Vim%20pelo%20site%20da%20SIS%20AI%20e%20quero%20falar%20sobre%20o%20agente%20de%20IA%20no%20WhatsApp.">
+        Prefiro falar direto no WhatsApp ›
+      </a>
       <p class="priv">Sem spam. Seus dados são usados apenas para o contato do diagnóstico.</p>
     </form>
   </div>
@@ -902,6 +978,14 @@ footer p{font-size:.84375rem;color:var(--label-3);line-height:1.5}
     <p>SIS AI — Smart Intelligence Solutions · IA e tráfego trabalhando pelo seu negócio.</p>
   </div>
 </footer>
+
+<div class="wa-bar" id="wa-bar">
+  <a class="btn btn-wa btn-block" data-press
+     href="https://wa.me/5598985512253?text=Ol%C3%A1!%20Vim%20pelo%20site%20da%20SIS%20AI%20e%20quero%20falar%20sobre%20o%20agente%20de%20IA%20no%20WhatsApp.">
+    <svg class="ic" aria-hidden="true"><use href="#ic-wa"/></svg>
+    Falar no WhatsApp agora
+  </a>
+</div>
 
 <script>
 /* ============================================================
@@ -945,17 +1029,28 @@ Spring.prototype.step = function(dt){
   return this.v;
 };
 
+/* O ticker dorme quando ninguém precisa de frames. Cada inscrito devolve
+   true enquanto tem trabalho; quando todos devolvem false o rAF para e só
+   volta via wake(), disparado por input. Num celular parado isso é a
+   diferença entre 60 frames por segundo e zero. */
 var subs = [], running = false, last = 0;
 function tick(now){
   var dt = Math.min((now - last) / 1000, 0.05);
   last = now;
-  for(var i = 0; i < subs.length; i++) subs[i](dt, now);
+  var active = false;
+  for(var i = 0; i < subs.length; i++){
+    if(subs[i](dt, now)) active = true;
+  }
+  if(active) requestAnimationFrame(tick);
+  else running = false;
+}
+function wake(){
+  if(running) return;
+  running = true;
+  last = performance.now();
   requestAnimationFrame(tick);
 }
-function subscribe(fn){
-  subs.push(fn);
-  if(!running){ running = true; last = performance.now(); requestAnimationFrame(tick); }
-}
+function subscribe(fn){ subs.push(fn); wake(); }
 
 /* ---- Pressionáveis ----
    Retorno no pointerdown, não no click. Ida rápida e sem bounce;
@@ -967,15 +1062,17 @@ function pressable(el){
   var held = false;
 
   subscribe(function(dt){
-    if(s.idle) return;
+    if(s.idle) return false;
     el.style.setProperty('--press', s.step(dt).toFixed(4));
+    return true;
   });
 
-  function down(){ held = true; s.set(scale, { response: 0.14, damping: 1 }); }
+  function down(){ held = true; s.set(scale, { response: 0.14, damping: 1 }); wake(); }
   function up(){
     if(!held) return;
     held = false;
     s.set(1, { response: 0.42, damping: 0.72 }); // leve overshoot: houve um gesto
+    wake();
   }
   el.addEventListener('pointerdown', down);
   el.addEventListener('pointerup', up);
@@ -984,17 +1081,72 @@ function pressable(el){
 }
 document.querySelectorAll('[data-press]').forEach(pressable);
 
+/* ---- Onde o chat da Estela mora ----
+   Um único nó no DOM, movido conforme a largura: no celular ele é a prova
+   principal e sobe pro hero; no desktop o robô ocupa o hero e o chat fica
+   ilustrando a esteira. Mover o nó preserva a animação em andamento. */
+(function(){
+  var demo = document.getElementById('estela-demo');
+  var noHero = document.getElementById('hero-demo');
+  var naEsteira = document.getElementById('esteira-demo');
+  if(!demo || !noHero || !naEsteira) return;
+
+  var mq = matchMedia('(max-width: 57.5rem)');
+  function place(){
+    var alvo = mq.matches ? noHero : naEsteira;
+    if(demo.parentNode !== alvo) alvo.appendChild(demo);
+  }
+  place();
+  if(mq.addEventListener) mq.addEventListener('change', place);
+  else if(mq.addListener) mq.addListener(place);
+})();
+
+/* ---- Barra fixa de WhatsApp ---- */
+(function(){
+  var bar = document.getElementById('wa-bar');
+  var hero = document.getElementById('hero');
+  if(!bar || !hero || !('IntersectionObserver' in window)) return;
+
+  var mostrada = false;
+  function aplicar(v){ bar.style.transform = 'translateY(' + v.toFixed(2) + '%)'; }
+
+  if(reduceMotion.matches){
+    new IntersectionObserver(function(es){
+      es.forEach(function(e){ aplicar(e.isIntersecting ? 110 : 0); });
+    }, { threshold: 0 }).observe(hero);
+    return;
+  }
+
+  var s = new Spring(110, { response: 0.5, damping: 0.86 });
+  subscribe(function(dt){
+    if(s.idle) return false;
+    aplicar(s.step(dt));
+    return true;
+  });
+
+  new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      var quer = !e.isIntersecting;
+      if(quer === mostrada) return;
+      mostrada = quer;
+      s.set(mostrada ? 0 : 110);
+      wake();
+    });
+  }, { threshold: 0 }).observe(hero);
+})();
+
 /* ---- Nav: material que aparece conforme o conteúdo passa por baixo ---- */
 (function(){
   var nav = document.querySelector('nav');
   var s = new Spring(0, { response: 0.45, damping: 1 });
   var applied = -1;
-  function onScroll(){ s.set(Math.min(1, window.scrollY / 72)); }
+  function onScroll(){ s.set(Math.min(1, window.scrollY / 72)); wake(); }
   subscribe(function(dt){
-    if(s.idle && Math.abs(applied - s.v) < 0.002) return;
+    if(s.idle && Math.abs(applied - s.v) < 0.002) return false;
     var v = s.step(dt);
     applied = v;
     nav.style.setProperty('--nav-t', v.toFixed(3));
+    return true;
   });
   addEventListener('scroll', onScroll, { passive: true });
   onScroll();
@@ -1033,6 +1185,7 @@ document.querySelectorAll('[data-press]').forEach(pressable);
     var x = e.clientX - r.left, y = e.clientY - r.top;
     if(!primed){ primed = true; sx.v = x; sy.v = y; sp.style.opacity = '1'; }
     sx.set(x); sy.set(y);
+    wake();
   });
   stage.addEventListener('pointerleave', function(){
     primed = false;
@@ -1040,10 +1193,11 @@ document.querySelectorAll('[data-press]').forEach(pressable);
   });
 
   subscribe(function(dt){
-    if(sx.idle && sy.idle) return;
+    if(sx.idle && sy.idle) return false;
     var half = sp.offsetWidth / 2;
     sp.style.transform = 'translate3d(' + (sx.step(dt) - half).toFixed(1) + 'px,'
       + (sy.step(dt) - half).toFixed(1) + 'px,0)';
+    return true;
   });
 })();
 
@@ -1120,8 +1274,21 @@ document.querySelectorAll('[data-press]').forEach(pressable);
     return;
   }
 
+  // o chat vive abaixo da dobra: não faz sentido animar sem ninguém vendo
+  var visible = true, pending = false;
+  if('IntersectionObserver' in window){
+    visible = false;
+    new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        visible = e.isIntersecting;
+        if(visible && pending){ pending = false; next(); }
+      });
+    }, { threshold: 0.05 }).observe(chat);
+  }
+
   var i = 0;
   function next(){
+    if(!visible){ pending = true; return; }
     if(i >= roteiro.length){
       setTimeout(function(){ chat.textContent = ''; i = 0; next(); }, 6000);
       return;
@@ -1152,6 +1319,8 @@ document.querySelectorAll('[data-press]').forEach(pressable);
 (function(){
   if(reduceMotion.matches) return;
   if(matchMedia('(prefers-reduced-transparency: reduce)').matches) return;
+  // é um efeito de ponteiro: sem ponteiro ele só queima bateria
+  if(!matchMedia('(hover: hover)').matches) return;
   var hero = document.getElementById('hero'), canvas = document.getElementById('kgrid');
   if(!canvas || !canvas.getContext) return;
   var ctx = canvas.getContext('2d');
@@ -1183,11 +1352,13 @@ document.querySelectorAll('[data-press]').forEach(pressable);
   hero.addEventListener('pointermove', function(e){
     var r = hero.getBoundingClientRect();
     target = { x: e.clientX - r.left, y: e.clientY - r.top };
+    wake();
   });
-  hero.addEventListener('pointerleave', function(){ target = { x:-9999, y:-9999 }; });
+  hero.addEventListener('pointerleave', function(){ target = { x:-9999, y:-9999 }; wake(); });
   hero.addEventListener('pointerdown', function(e){
     var r = hero.getBoundingClientRect();
     ripples.push({ x: e.clientX - r.left, y: e.clientY - r.top, radius: 0, opacity: 1, born: performance.now() });
+    wake();
   });
 
   function lerpN(a, b, t){ return a + (b - a) * t; }
@@ -1277,7 +1448,11 @@ document.querySelectorAll('[data-press]').forEach(pressable);
     mouse.x = lerpN(mouse.x, target.x, LERP);
     mouse.y = lerpN(mouse.y, target.y, LERP);
     draw(now);
+    // para de pedir frames quando a grade voltou ao repouso
+    var settled = Math.abs(mouse.x - target.x) < 0.5 && Math.abs(mouse.y - target.y) < 0.5;
+    return ripples.length > 0 || !settled;
   });
+  addEventListener('resize', wake);
 })();
 
 /* ---- Formulário: máscara, validação inline e envio pro WhatsApp ---- */
