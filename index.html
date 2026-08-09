@@ -546,6 +546,8 @@ nav .links .btn{padding:.5625rem 1.125rem;font-size:.875rem;min-height:2.75rem}
   font-size:clamp(1rem,1.5vw,1.125rem);font-weight:600;
   line-height:1.4;letter-spacing:-.018em;color:var(--label);
 }
+/* a coluna é alinhada à esquerda: o botão acompanha, não centraliza */
+.sobre-cta{margin-top:2rem}
 @media(max-width:53.75rem){
   .sobre .wrap{grid-template-columns:1fr}
   .sobre-foto{max-width:24rem;margin:0 auto}
@@ -655,10 +657,11 @@ footer{
 footer .wrap{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1.25rem}
 footer p{font-size:.84375rem;color:var(--label-3);line-height:1.5}
 
-/* ---------- BARRA FIXA DE WHATSAPP (só celular) ----------
+/* ---------- BARRA FIXA DE CTA (só celular) ----------
    Entra por spring depois que o hero sai da tela: não rouba a primeira
-   impressão, mas fica ao alcance do polegar no resto da rolagem. */
-.wa-bar{
+   impressão, mas fica ao alcance do polegar no resto da rolagem.
+   Aponta para o formulário — todo lead passa por lá. */
+.cta-bar{
   display:none;
   position:fixed;left:0;right:0;bottom:0;z-index:70;
   padding:.75rem max(1rem,env(safe-area-inset-left))
@@ -670,26 +673,14 @@ footer p{font-size:.84375rem;color:var(--label-3);line-height:1.5}
   transform:translateY(110%);
   will-change:transform;
 }
-.btn-wa{background:var(--wa);gap:.625rem}
-.btn-wa:hover{background:#0C6B60}
-.btn-wa .ic{width:1.25rem;height:1.25rem;flex-shrink:0}
 @media(max-width:57.5rem){
-  .wa-bar{display:block}
+  .cta-bar{display:block}
   /* espaço pra barra não cobrir o fim da página */
   footer{padding-bottom:calc(max(2.5rem,env(safe-area-inset-bottom)) + 4.25rem)}
 }
 @media(prefers-reduced-transparency:reduce){
-  .wa-bar{background:#fff;backdrop-filter:none;-webkit-backdrop-filter:none}
+  .cta-bar{background:#fff;backdrop-filter:none;-webkit-backdrop-filter:none}
 }
-
-/* atalho pra quem não quer preencher formulário nenhum */
-.form-alt{
-  display:block;text-align:center;margin-top:.875rem;
-  font-size:.875rem;font-weight:600;letter-spacing:-.008em;
-  color:var(--accent-text);text-decoration:none;
-  padding:.625rem;min-height:2.75rem;
-}
-.form-alt:hover{text-decoration:underline}
 
 /* ---------- REVELAÇÃO AO ROLAR ----------
    Entrada e saída pelo mesmo eixo; escalonamento por índice. */
@@ -740,9 +731,6 @@ footer p{font-size:.84375rem;color:var(--label-3);line-height:1.5}
   </symbol>
   <symbol id="ic-check" viewBox="0 0 20 20">
     <path d="M4 10.5l4 4 8-9" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
-  </symbol>
-  <symbol id="ic-wa" viewBox="0 0 24 24">
-    <path fill="currentColor" d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2zm0 1.67c2.2 0 4.27.86 5.83 2.42a8.19 8.19 0 0 1 2.41 5.82c0 4.54-3.7 8.24-8.24 8.24-1.48 0-2.93-.4-4.19-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.19 8.19 0 0 1-1.26-4.38c0-4.54 3.7-8.24 8.24-8.24zm-3.4 4.2c-.16 0-.42.06-.64.3-.22.24-.84.82-.84 2s.86 2.32.98 2.48c.12.16 1.7 2.6 4.12 3.64.58.25 1.03.4 1.38.51.58.18 1.11.16 1.53.1.47-.07 1.44-.59 1.64-1.16.2-.57.2-1.06.14-1.16-.06-.1-.22-.16-.46-.28-.24-.12-1.44-.71-1.66-.79-.22-.08-.38-.12-.54.12-.16.24-.62.79-.76.95-.14.16-.28.18-.52.06-.24-.12-1.02-.38-1.94-1.2-.72-.64-1.2-1.43-1.34-1.67-.14-.24-.02-.37.1-.49.11-.11.24-.28.36-.42.12-.14.16-.24.24-.4.08-.16.04-.3-.02-.42-.06-.12-.54-1.3-.74-1.78-.19-.46-.39-.4-.54-.41h-.46z"/>
   </symbol>
 </svg>
 
@@ -834,6 +822,8 @@ footer p{font-size:.84375rem;color:var(--label-3);line-height:1.5}
       </div>
       <div class="chat-tag"><span class="dot"></span> Estela vendendo às 23h47 de um domingo</div>
     </div></div>
+
+    <div class="cta-center" data-reveal><a href="#diagnostico" class="btn" data-press>Quero essa esteira na minha loja</a></div>
   </div>
 </section>
 
@@ -864,6 +854,8 @@ footer p{font-size:.84375rem;color:var(--label-3);line-height:1.5}
         </div>
       </div>
     </div>
+
+    <div class="cta-center" data-reveal><a href="#diagnostico" class="btn" data-press>Quero esse painel na minha operação</a></div>
   </div>
 </section>
 
@@ -889,6 +881,7 @@ footer p{font-size:.84375rem;color:var(--label-3);line-height:1.5}
         <p data-reveal style="--i:5">Meu foco não é apenas gerar leads. É construir sistemas que atendem, qualificam, acompanham e transformam oportunidades em vendas.</p>
       </div>
       <p class="assinatura" data-reveal style="--i:6">Tecnologia para vender mais.<br>Estratégia para crescer melhor.</p>
+      <div class="sobre-cta" data-reveal style="--i:7"><a href="#diagnostico" class="btn" data-press>Quero um diagnóstico da minha operação</a></div>
     </div>
   </div>
 </section>
@@ -961,9 +954,6 @@ footer p{font-size:.84375rem;color:var(--label-3);line-height:1.5}
         <span class="err">Escolha uma faixa de estoque</span>
       </div>
       <button class="btn btn-block" type="submit" id="btnlead" data-press>Receber diagnóstico no WhatsApp</button>
-      <a class="form-alt" href="https://wa.me/5598985512253?text=Ol%C3%A1!%20Vim%20pelo%20site%20da%20SIS%20AI%20e%20quero%20falar%20sobre%20o%20agente%20de%20IA%20no%20WhatsApp.">
-        Prefiro falar direto no WhatsApp ›
-      </a>
       <p class="priv">Sem spam. Seus dados são usados apenas para o contato do diagnóstico.</p>
     </form>
   </div>
@@ -979,12 +969,8 @@ footer p{font-size:.84375rem;color:var(--label-3);line-height:1.5}
   </div>
 </footer>
 
-<div class="wa-bar" id="wa-bar">
-  <a class="btn btn-wa btn-block" data-press
-     href="https://wa.me/5598985512253?text=Ol%C3%A1!%20Vim%20pelo%20site%20da%20SIS%20AI%20e%20quero%20falar%20sobre%20o%20agente%20de%20IA%20no%20WhatsApp.">
-    <svg class="ic" aria-hidden="true"><use href="#ic-wa"/></svg>
-    Falar no WhatsApp agora
-  </a>
+<div class="cta-bar" id="cta-bar">
+  <a class="btn btn-block" href="#diagnostico" data-press>Quero meu diagnóstico gratuito</a>
 </div>
 
 <script>
@@ -1101,38 +1087,43 @@ document.querySelectorAll('[data-press]').forEach(pressable);
   else if(mq.addListener) mq.addListener(place);
 })();
 
-/* ---- Barra fixa de WhatsApp ---- */
+/* ---- Barra fixa de CTA ---- */
 (function(){
-  var bar = document.getElementById('wa-bar');
+  var bar = document.getElementById('cta-bar');
   var hero = document.getElementById('hero');
   if(!bar || !hero || !('IntersectionObserver' in window)) return;
 
-  var mostrada = false;
+  var form = document.getElementById('diagnostico');
+  var heroVisivel = true, formVisivel = false, mostrada = false;
+
   function aplicar(v){ bar.style.transform = 'translateY(' + v.toFixed(2) + '%)'; }
 
-  if(reduceMotion.matches){
-    new IntersectionObserver(function(es){
-      es.forEach(function(e){ aplicar(e.isIntersecting ? 110 : 0); });
-    }, { threshold: 0 }).observe(hero);
-    return;
-  }
-
-  var s = new Spring(110, { response: 0.5, damping: 0.86 });
-  subscribe(function(dt){
+  var s = reduceMotion.matches ? null : new Spring(110, { response: 0.5, damping: 0.86 });
+  if(s) subscribe(function(dt){
     if(s.idle) return false;
     aplicar(s.step(dt));
     return true;
   });
 
-  new IntersectionObserver(function(entries){
-    entries.forEach(function(e){
-      var quer = !e.isIntersecting;
-      if(quer === mostrada) return;
-      mostrada = quer;
-      s.set(mostrada ? 0 : 110);
-      wake();
-    });
+  // aparece depois do hero e recolhe ao chegar no formulário,
+  // pra não cobrir justamente o que o visitante veio preencher
+  function avaliar(){
+    var quer = !heroVisivel && !formVisivel;
+    if(quer === mostrada) return;
+    mostrada = quer;
+    if(s){ s.set(mostrada ? 0 : 110); wake(); }
+    else aplicar(mostrada ? 0 : 110);
+  }
+
+  new IntersectionObserver(function(es){
+    es.forEach(function(e){ heroVisivel = e.isIntersecting; });
+    avaliar();
   }, { threshold: 0 }).observe(hero);
+
+  if(form) new IntersectionObserver(function(es){
+    es.forEach(function(e){ formVisivel = e.isIntersecting; });
+    avaliar();
+  }, { threshold: 0.15 }).observe(form);
 })();
 
 /* ---- Nav: material que aparece conforme o conteúdo passa por baixo ---- */
