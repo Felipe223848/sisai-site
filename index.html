@@ -2,246 +2,761 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SIS AI — IA e tráfego que transformam lead em cliente</title>
-<meta name="description" content="A SIS AI implanta agentes de IA, CRM e tráfego pago na sua operação. Atendimento 24h, follow-up automático e vendas no piloto automático.">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#ffffff">
+<title>SIS AI — A nova era dos negócios: IA e atendimento 24h</title>
+<meta name="description" content="A SIS AI coloca um agente de inteligência artificial no seu WhatsApp: responde em segundos, qualifica, agenda e faz follow-up 24 horas por dia. Sua equipe só entra pra fechar.">
 <style>
+/* ============================================================
+   SIS AI — sistema de design
+   Tipografia: fonte do sistema (optical sizing e tracking nativos)
+   Cor: preto verdadeiro + camadas de elevação, roxo como acento
+   Motion: springs para o que se toca, curvas para o que só aparece
+   ============================================================ */
 :root{
-  --grafite:#0A0A0F; --surface:#12121A; --surface2:#181822;
-  --roxo:#8B5CF6; --roxo-deep:#6D3FE0; --roxo-dark:#4C1D95;
-  --branco:#F5F5F7; --cinza:#9CA3AF; --borda:#232330;
+  color-scheme:light;
+
+  /* superfícies — no claro a hierarquia vem do cinza da seção, não da elevação */
+  --bg:#fff;
+  --elev-1:#F5F5F7;
+  --elev-2:#fff;
+  --mat-chrome:rgba(255,255,255,.72);
+  --edge:inset 0 1px 0 rgba(255,255,255,.9);
+  --sep:rgba(0,0,0,.11);
+
+  /* rótulos */
+  --label:#1D1D1F;
+  --label-2:#6E6E73;
+  --label-3:#74747A;
+
+  /* acento — sobre branco o roxo precisa escurecer pra ter contraste em texto */
+  --accent:#6D3FE0;
+  --accent-fill:#6D3FE0;
+  --accent-text:#5B2FD1;
+  --accent-soft:rgba(109,63,224,.07);
+  --accent-line:rgba(109,63,224,.22);
+
+  /* semânticas — tom escuro pra texto, tom vivo pra preenchimento */
+  --green:#0E8A3C;
+  --green-fill:#34C759;
+  --wa:#0F7F72;
+  --orange:#B25000;
+  --red:#D70015;
+
+  /* raios */
+  --r-xs:.5rem; --r-sm:.75rem; --r-md:1.125rem; --r-lg:1.5rem;
+
+  /* sombras — no claro elas são suaves; peso demais suja o branco */
+  --sh-1:0 1px 2px rgba(0,0,0,.04), 0 4px 12px -4px rgba(0,0,0,.08);
+  --sh-2:0 2px 6px rgba(0,0,0,.05), 0 16px 40px -12px rgba(0,0,0,.12);
+  --sh-3:0 4px 14px rgba(0,0,0,.06), 0 32px 72px -24px rgba(0,0,0,.16);
+
+  /* curva de saída — springs de verdade ficam no JS */
+  --ease-out:cubic-bezier(.22,1,.36,1);
+
+  /* ritmo vertical em rem: escala junto com o texto do usuário */
+  --sect:clamp(5rem,10vw,8.5rem);
 }
+
 *{margin:0;padding:0;box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{background:var(--grafite);color:var(--branco);font-family:'Inter',sans-serif;line-height:1.6;overflow-x:hidden}
-h1,h2,h3,.display{font-family:'Sora',sans-serif}
-.wrap{max-width:1140px;margin:0 auto;padding:0 24px}
-.eyebrow{font-size:13px;letter-spacing:.18em;text-transform:uppercase;color:var(--roxo);font-weight:600;margin-bottom:16px;display:block}
-.roxo{color:var(--roxo)}
-section{padding:96px 0}
-.btn{display:inline-block;background:var(--roxo);color:#fff;font-family:'Sora',sans-serif;font-weight:600;font-size:16px;padding:16px 32px;border-radius:10px;text-decoration:none;border:none;cursor:pointer;transition:transform .15s ease, background .15s ease}
-.btn:hover{background:var(--roxo-deep);transform:translateY(-2px)}
-.btn-ghost{background:transparent;border:1px solid var(--borda);color:var(--branco)}
-.btn-ghost:hover{background:var(--surface);border-color:var(--roxo)}
+html{
+  -webkit-text-size-adjust:100%;
+  scroll-behavior:smooth;
+}
+body{
+  background:var(--bg);
+  color:var(--label);
+  /* fonte do sistema: já traz optical sizing, tracking e legibilidade afinados */
+  font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","SF Pro Display","Segoe UI",Roboto,system-ui,sans-serif;
+  font-size:100%;
+  line-height:1.55;
+  letter-spacing:-.006em;
+  overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+}
+img,svg{display:block;max-width:100%}
+::selection{background:rgba(109,63,224,.18)}
 
-/* NAV */
-nav{position:sticky;top:0;z-index:50;background:rgba(10,10,15,.85);backdrop-filter:blur(12px);border-bottom:1px solid var(--borda)}
-nav .wrap{display:flex;align-items:center;justify-content:space-between;height:72px}
-.logo{display:flex;align-items:center;gap:12px;text-decoration:none}
-.logo svg{width:34px;height:40px}
-.logo span{font-family:'Sora',sans-serif;font-weight:700;font-size:20px;color:var(--branco);letter-spacing:.02em}
-.logo span b{color:var(--roxo);font-weight:700}
-nav .links{display:flex;gap:28px;align-items:center}
-nav .links a{color:var(--cinza);text-decoration:none;font-size:15px;transition:color .15s}
-nav .links a:hover{color:var(--branco)}
-nav .links .btn{padding:10px 20px;font-size:14px}
-@media(max-width:820px){nav .links a:not(.btn){display:none}}
+/* foco visível — craft e acessibilidade */
+:focus-visible{
+  outline:2px solid var(--accent-text);
+  outline-offset:3px;
+  border-radius:var(--r-xs);
+}
 
-/* HERO */
-.hero{padding:80px 0 100px;position:relative}
-.hero::before{content:'';position:absolute;top:-200px;right:-200px;width:600px;height:600px;background:radial-gradient(circle,rgba(139,92,246,.14),transparent 65%);pointer-events:none}
-.hero .wrap{display:grid;grid-template-columns:1.15fr .85fr;gap:64px;align-items:center}
-.hero h1{font-size:clamp(34px,4.6vw,56px);line-height:1.12;font-weight:800;letter-spacing:-.02em;margin-bottom:24px}
-.hero p.sub{font-size:19px;color:var(--cinza);max-width:520px;margin-bottom:36px}
-.hero .ctas{display:flex;gap:16px;flex-wrap:wrap}
-.stats{display:flex;gap:40px;margin-top:56px;flex-wrap:wrap}
-.stat b{font-family:'Sora',sans-serif;font-size:30px;font-weight:700;display:block;color:var(--branco)}
-.stat span{font-size:13.5px;color:var(--cinza)}
-.stat b em{font-style:normal;color:var(--roxo)}
-@media(max-width:920px){.hero .wrap{grid-template-columns:1fr}.hero{padding:56px 0 72px}}
+.wrap{max-width:71.25rem;margin:0 auto;padding:0 1.5rem}
+section{padding:var(--sect) 0}
+[id]{scroll-margin-top:6rem}
 
-/* PHONE MOCKUP */
-.phone{width:340px;max-width:100%;margin:0 auto;background:#0E0E14;border:1px solid var(--borda);border-radius:36px;padding:14px;box-shadow:0 40px 80px -30px rgba(139,92,246,.25)}
-.phone .screen{background:#0B141A;border-radius:26px;overflow:hidden;display:flex;flex-direction:column;height:540px}
-.chat-head{background:#1F2C34;display:flex;align-items:center;gap:10px;padding:12px 14px}
-.chat-head .av{width:38px;height:38px;border-radius:50%;background:var(--roxo);display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.chat-head .av svg{width:18px;height:21px}
-.chat-head .nm{font-size:14.5px;font-weight:600;line-height:1.2}
-.chat-head .st{font-size:11.5px;color:#25D366}
-.chat-body{flex:1;padding:16px 12px;display:flex;flex-direction:column;gap:8px;overflow:hidden;justify-content:flex-end}
-.msg{max-width:82%;padding:8px 12px;border-radius:10px;font-size:13px;line-height:1.45;opacity:0;transform:translateY(8px);animation:pop .35s ease forwards}
-.msg.in{background:#1F2C34;align-self:flex-start;border-top-left-radius:2px}
-.msg.out{background:#134D37;align-self:flex-end;border-top-right-radius:2px}
-.msg .t{display:block;font-size:10px;color:rgba(255,255,255,.45);text-align:right;margin-top:3px}
-@keyframes pop{to{opacity:1;transform:translateY(0)}}
-.typing{align-self:flex-start;background:#1F2C34;border-radius:10px;padding:10px 14px;display:none;gap:4px}
-.typing i{width:6px;height:6px;border-radius:50%;background:#8696A0;display:inline-block;animation:blink 1.2s infinite}
-.typing i:nth-child(2){animation-delay:.2s}.typing i:nth-child(3){animation-delay:.4s}
-@keyframes blink{0%,60%,100%{opacity:.3}30%{opacity:1}}
-.chat-tag{background:var(--surface);border:1px solid var(--borda);border-radius:100px;padding:8px 18px;font-size:12.5px;color:var(--cinza);width:max-content;margin:18px auto 0;display:flex;gap:8px;align-items:center}
-.chat-tag .dot{width:8px;height:8px;border-radius:50%;background:#25D366;animation:blink 1.6s infinite}
+/* ---------- TIPOGRAFIA ----------
+   Tracking é específico do tamanho: aperta no display, ~0 no corpo,
+   positivo no miúdo e no caixa-alta. Leading inverso ao tamanho. */
+.display{
+  font-size:clamp(2.375rem,5.2vw,4.25rem);
+  line-height:1.04;
+  letter-spacing:-.035em;
+  font-weight:700;
+}
+h2{
+  font-size:clamp(1.75rem,3.5vw,2.75rem);
+  line-height:1.09;
+  letter-spacing:-.028em;
+  font-weight:700;
+}
+h3{font-size:1.3125rem;line-height:1.26;letter-spacing:-.016em;font-weight:600}
+h4{font-size:1rem;line-height:1.35;letter-spacing:-.011em;font-weight:600}
+h5{font-size:.8125rem;line-height:1.3;letter-spacing:-.005em;font-weight:600}
 
-/* PROBLEMA */
-.problema{background:var(--surface);border-top:1px solid var(--borda);border-bottom:1px solid var(--borda)}
-.problema h2{font-size:clamp(26px,3.4vw,38px);font-weight:700;letter-spacing:-.01em;max-width:720px;margin-bottom:56px}
-.dores{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
-@media(max-width:1020px){.dores{grid-template-columns:1fr 1fr}}
-.dor{background:var(--grafite);border:1px solid var(--borda);border-radius:16px;padding:32px 28px}
-.dor .num{font-family:'Sora',sans-serif;font-size:14px;color:var(--roxo);font-weight:700;letter-spacing:.1em;margin-bottom:14px;display:block}
-.dor h3{font-size:19px;margin-bottom:10px;font-weight:600}
-.dor p{font-size:15px;color:var(--cinza)}
-@media(max-width:820px){.dores{grid-template-columns:1fr}}
+.lead{
+  font-size:clamp(1.0625rem,1.5vw,1.1875rem);
+  line-height:1.52;
+  letter-spacing:-.012em;
+  color:var(--label-2);
+  max-width:40rem;
+}
+.eyebrow{
+  display:block;
+  font-size:.75rem;
+  font-weight:600;
+  line-height:1.3;
+  letter-spacing:.08em;      /* caixa-alta pede tracking positivo */
+  text-transform:uppercase;
+  color:var(--accent-text);
+  margin-bottom:1rem;
+}
+.num{font-variant-numeric:tabular-nums;font-feature-settings:"tnum" 1}
 
-/* ESTEIRA */
-.esteira h2{font-size:clamp(26px,3.4vw,38px);font-weight:700;margin-bottom:16px;letter-spacing:-.01em}
-.esteira .lead{color:var(--cinza);font-size:17px;max-width:640px;margin-bottom:64px}
-.pipe{display:grid;grid-template-columns:repeat(6,1fr);gap:0;position:relative}
-.pipe::before{content:'';position:absolute;top:27px;left:8%;right:8%;height:2px;background:linear-gradient(90deg,var(--roxo-dark),var(--roxo));opacity:.5}
-.step{text-align:center;padding:0 8px;position:relative}
-.step .ico{width:54px;height:54px;border-radius:14px;background:var(--surface);border:1px solid var(--borda);display:flex;align-items:center;justify-content:center;margin:0 auto 16px;position:relative;z-index:1;font-size:22px}
-.step.hl .ico{background:var(--roxo);border-color:var(--roxo)}
-.step h4{font-family:'Sora',sans-serif;font-size:14.5px;font-weight:600;margin-bottom:6px}
-.step p{font-size:12.5px;color:var(--cinza);line-height:1.45}
-@media(max-width:920px){.pipe{grid-template-columns:repeat(3,1fr);gap:32px 0}.pipe::before{display:none}}
-@media(max-width:560px){.pipe{grid-template-columns:repeat(2,1fr)}}
+/* ---------- BOTÕES ----------
+   Feedback nasce no pointerdown (§1). A escala é conduzida por spring no JS;
+   o CSS só garante o estado inicial e o fallback sem JS. */
+.btn{
+  --press:1;
+  display:inline-flex;align-items:center;justify-content:center;gap:.5rem;
+  font:inherit;font-size:1rem;font-weight:600;letter-spacing:-.011em;
+  padding:.9375rem 1.75rem;
+  border-radius:var(--r-sm);
+  border:1px solid transparent;
+  background:var(--accent-fill);
+  color:#fff;
+  text-decoration:none;
+  cursor:pointer;
+  transform:scale(var(--press));
+  transform-origin:center;
+  will-change:transform;
+  box-shadow:var(--sh-1),var(--edge);
+  transition:background .22s var(--ease-out),border-color .22s var(--ease-out),box-shadow .22s var(--ease-out);
+}
+.btn:hover{background:#5B2FD1;box-shadow:var(--sh-2),var(--edge)}
+.btn-ghost{
+  background:var(--elev-1);
+  border-color:var(--sep);
+  color:var(--label);
+}
+.btn-ghost:hover{background:#fff;border-color:rgba(0,0,0,.2)}
+.btn-block{width:100%}
 
-/* FORM */
-.captura{position:relative}
-.captura::before{content:'';position:absolute;bottom:-100px;left:-200px;width:520px;height:520px;background:radial-gradient(circle,rgba(139,92,246,.12),transparent 65%);pointer-events:none}
-.captura .wrap{display:grid;grid-template-columns:1fr 1fr;gap:72px;align-items:start}
-.captura h2{font-size:clamp(28px,3.6vw,42px);font-weight:700;letter-spacing:-.01em;margin-bottom:20px}
-.captura .lead{color:var(--cinza);font-size:17px;margin-bottom:32px}
-.check{list-style:none;display:flex;flex-direction:column;gap:14px}
-.check li{display:flex;gap:12px;font-size:15.5px;color:var(--branco)}
-.check li::before{content:'✓';color:var(--roxo);font-weight:700;flex-shrink:0}
-form{background:var(--surface);border:1px solid var(--borda);border-radius:20px;padding:40px 36px}
-form h3{font-size:20px;font-weight:600;margin-bottom:26px}
-.field{margin-bottom:18px}
-.field label{display:block;font-size:13.5px;color:var(--cinza);margin-bottom:7px;font-weight:500}
-.field input,.field select{width:100%;background:var(--grafite);border:1px solid var(--borda);border-radius:10px;padding:13px 15px;color:var(--branco);font-size:15px;font-family:'Inter',sans-serif;transition:border-color .15s}
-.field input:focus,.field select:focus{outline:none;border-color:var(--roxo)}
-form .btn{width:100%;margin-top:8px}
-form .priv{font-size:12px;color:var(--cinza);text-align:center;margin-top:14px}
-@media(max-width:860px){.captura .wrap{grid-template-columns:1fr;gap:48px}form{padding:32px 24px}}
+/* ---------- MATERIAIS ---------- */
+.card{
+  position:relative;
+  background:var(--elev-1);
+  border:1px solid var(--sep);
+  border-radius:var(--r-md);
+  box-shadow:var(--sh-1),var(--edge);
+}
+/* No tema claro um material translúcido sobre fundo claro some.
+   O formulário vira superfície sólida cinza com os campos em branco. */
+.glass{
+  background:var(--elev-1);
+  border:1px solid var(--sep);
+  box-shadow:var(--sh-1);
+}
 
+/* ---------- NAV ----------
+   Camada flutuante que se materializa ao rolar, com scroll edge effect
+   no lugar de uma borda de 1px fixa (§12). --nav-t vem de um spring. */
+nav{
+  position:sticky;top:0;z-index:60;
+  isolation:isolate;
+}
+nav::before{
+  content:'';position:absolute;inset:0;z-index:-1;
+  background:var(--mat-chrome);
+  backdrop-filter:blur(28px) saturate(180%);
+  -webkit-backdrop-filter:blur(28px) saturate(180%);
+  box-shadow:var(--edge);
+  opacity:var(--nav-t,0);
+}
+nav::after{
+  content:'';position:absolute;left:0;right:0;top:100%;height:1.5rem;z-index:-1;
+  background:linear-gradient(rgba(0,0,0,.055),transparent);
+  opacity:var(--nav-t,0);
+  pointer-events:none;
+}
+nav .wrap{display:flex;align-items:center;justify-content:space-between;height:4.5rem}
+.logo{display:flex;align-items:center;gap:.6875rem;text-decoration:none;color:var(--label)}
+.logo .mark{width:1.75rem;height:2.0625rem;color:var(--accent)}
+.logo .wordmark{font-size:1.1875rem;font-weight:700;letter-spacing:-.02em}
+.logo .wordmark b{color:var(--accent-text);font-weight:700}
+nav .links{display:flex;gap:1.75rem;align-items:center}
+nav .links a:not(.btn){
+  color:var(--label-2);text-decoration:none;font-size:.9375rem;font-weight:500;
+  letter-spacing:-.008em;transition:color .18s var(--ease-out);
+}
+nav .links a:not(.btn):hover{color:var(--label)}
+nav .links .btn{padding:.5625rem 1.125rem;font-size:.875rem}
+@media(max-width:52rem){nav .links a:not(.btn){display:none}}
 
-/* CATALOGO MOCKUP */
-.catmock{background:var(--surface);border:1px solid var(--borda);border-radius:16px;overflow:hidden;margin-top:28px}
-.catmock .ch{display:flex;align-items:center;justify-content:space-between;padding:14px 18px;border-bottom:1px solid var(--borda)}
-.catmock .ch .st{display:flex;align-items:center;gap:10px}
-.catmock .ch .ini{width:32px;height:32px;border-radius:9px;background:var(--roxo);display:flex;align-items:center;justify-content:center;font-family:'Sora';font-weight:700;font-size:13px}
-.catmock .ch b{font-size:14px;font-family:'Sora'}
-.catmock .ch b span{display:block;font-size:10.5px;color:var(--cinza);font-family:'Inter';font-weight:400}
-.catmock .wapill{display:flex;align-items:center;gap:6px;background:rgba(37,211,102,.12);border:1px solid rgba(37,211,102,.4);color:#25D366;font-size:11.5px;font-weight:600;padding:6px 12px;border-radius:100px}
-.catmock .chips{display:flex;gap:6px;padding:12px 18px 0;flex-wrap:wrap}
-.catmock .chip{font-size:11px;padding:5px 13px;border-radius:100px;border:1px solid var(--borda);color:var(--cinza)}
-.catmock .chip.on{background:var(--roxo);border-color:var(--roxo);color:#fff;font-weight:600}
-.catmock .prods{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:14px 18px 18px}
-.catmock .prod{background:var(--grafite);border:1px solid var(--borda);border-radius:12px;overflow:hidden}
-.catmock .prod .ph{height:74px;background:linear-gradient(135deg,rgba(139,92,246,.22),rgba(76,29,149,.14));display:flex;align-items:center;justify-content:center;font-size:30px}
-.catmock .prod .pi2{padding:10px 12px}
-.catmock .prod h5{font-size:12.5px;font-weight:600;line-height:1.3}
-.catmock .prod small{font-size:10.5px;color:var(--cinza)}
-.catmock .prod .pr{display:flex;align-items:center;justify-content:space-between;margin-top:7px}
-.catmock .prod .pr b{font-size:13px;color:#25D366}
-.catmock .prod .pr span{font-size:10.5px;color:var(--roxo);font-weight:600}
-.catmock .cf{text-align:center;font-size:10.5px;color:var(--cinza);padding:0 0 14px}
-
-/* FOOTER */
-footer{border-top:1px solid var(--borda);padding:40px 0;background:var(--grafite)}
-footer .wrap{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:20px}
-footer p{font-size:13.5px;color:var(--cinza)}
-
-/* KINETIC GRID */
-.hero{overflow:hidden}
-#kgrid{position:absolute;inset:0;z-index:0;pointer-events:none}
+/* ---------- HERO ---------- */
+/* Lavagem sutil de cor no topo — evita o branco chapado sem virar cor de fundo */
+.hero{
+  position:relative;overflow:hidden;
+  padding:clamp(3rem,7vw,5.5rem) 0 clamp(4rem,8vw,6.5rem);
+  background:radial-gradient(125% 85% at 50% -12%,rgba(109,63,224,.08),transparent 62%);
+}
+#kgrid{position:absolute;inset:0;z-index:0;pointer-events:none;opacity:.85}
 .hero .wrap{position:relative;z-index:2}
+.hero .display{margin-bottom:1.375rem}
+.hero .sub{max-width:34rem;margin-bottom:2.25rem}
+.hero .ctas{display:flex;gap:.875rem;flex-wrap:wrap}
+.accent{color:var(--accent-text)}
 
+/* ---------- PALCO 3D ----------
+   A cena do robô é escura por natureza, então ela ganha um palco escuro
+   em vez de brigar com o branco da página. Tokens invertidos no escopo. */
+.stage{
+  position:relative;overflow:hidden;isolation:isolate;
+  border-radius:var(--r-lg);
+  background:
+    radial-gradient(90% 120% at 78% 15%,rgba(109,63,224,.22),transparent 62%),
+    linear-gradient(180deg,#141419,#0A0A0D);
+  box-shadow:var(--sh-3);
+  display:grid;grid-template-columns:1.02fr .98fr;
+  min-height:33rem;align-items:center;
 
-.ptabs{display:flex;gap:6px;margin-bottom:24px;flex-wrap:wrap}
-.ptab{font-size:12.5px;color:var(--cinza);padding:7px 16px;border-radius:100px;border:1px solid transparent}
-.ptab.on{background:var(--surface2);color:var(--branco);border-color:var(--borda);font-weight:600}
-.stk{display:flex;align-items:center;justify-content:space-between;padding:9px 0;border-bottom:1px solid var(--borda);font-size:13px}
-.stk:last-child{border:none}
-.stk span{display:block;font-size:11px;color:var(--cinza)}
-.stk b.preco{color:#25D366;font-weight:600;font-size:13px}
+  /* obrigatório: redefinir --label não muda a cor herdada do body,
+     só afeta quem referencia a variável. Sem esta linha o h1 fica preto. */
+  color:var(--label);
+  --label:#F5F5F7;
+  --label-2:rgba(235,235,245,.68);
+  --accent-text:#C3ADFF;
+  --sep:rgba(255,255,255,.14);
+}
+.stage-copy{padding:clamp(2rem,4vw,3.5rem);position:relative;z-index:2}
+/* a coluna é estreita: o display da página inteira fica grande demais aqui */
+.stage .display{font-size:clamp(2rem,3.3vw,3rem);letter-spacing:-.03em;line-height:1.06}
+.stage .sub{font-size:1.0625rem;max-width:30rem;margin-bottom:2rem}
+.stage .btn-ghost{
+  background:rgba(255,255,255,.09);
+  border-color:rgba(255,255,255,.2);
+  color:#F5F5F7;
+}
+.stage .btn-ghost:hover{background:rgba(255,255,255,.15);border-color:rgba(255,255,255,.3)}
 
-/* PAINEL MOCKUP */
-.painel{border-top:1px solid var(--borda)}
-.painel h2{font-size:clamp(26px,3.4vw,38px);font-weight:700;margin-bottom:16px;letter-spacing:-.01em}
-.painel .lead{color:var(--cinza);font-size:17px;max-width:640px;margin-bottom:56px}
-.browser{background:var(--surface);border:1px solid var(--borda);border-radius:18px;overflow:hidden;box-shadow:0 50px 100px -40px rgba(139,92,246,.28)}
-.browser .bar{background:var(--surface2);padding:12px 18px;display:flex;align-items:center;gap:8px;border-bottom:1px solid var(--borda)}
-.browser .bar i{width:11px;height:11px;border-radius:50%;display:inline-block}
-.browser .bar i:nth-child(1){background:#FF5F57}.browser .bar i:nth-child(2){background:#FEBC2E}.browser .bar i:nth-child(3){background:#28C840}
-.browser .bar .url{margin-left:14px;background:var(--grafite);border:1px solid var(--borda);border-radius:8px;padding:5px 16px;font-size:12.5px;color:var(--cinza)}
-.browser .body{padding:32px}
-.browser .head-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:26px;flex-wrap:wrap;gap:12px}
-.browser .head-row h3{font-size:19px;font-weight:600}
-.browser .head-row p{font-size:13px;color:var(--cinza)}
-.pill{display:inline-flex;align-items:center;gap:7px;background:rgba(37,211,102,.1);border:1px solid rgba(37,211,102,.35);color:#25D366;font-size:12.5px;font-weight:600;padding:6px 14px;border-radius:100px}
-.pill .d{width:7px;height:7px;border-radius:50%;background:#25D366;animation:blink 1.6s infinite}
-.kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:16px}
-.kpi{background:var(--grafite);border:1px solid var(--borda);border-radius:14px;padding:20px}
-.kpi span{font-size:12.5px;color:var(--cinza);display:block;margin-bottom:8px}
-.kpi b{font-family:'Sora',sans-serif;font-size:30px;font-weight:700;line-height:1.1}
-.kpi small{font-size:11.5px;color:var(--cinza)}
-.kpi.hl{background:rgba(139,92,246,.1);border-color:rgba(139,92,246,.4)}
-.kpi.hl b{color:var(--roxo)}
-.kpi.warn b{color:#F59E0B}
-.kpi.ok b{color:#25D366}
-.rows2{display:grid;grid-template-columns:1.2fr .8fr;gap:16px}
-.mini{background:var(--grafite);border:1px solid var(--borda);border-radius:14px;padding:20px}
-.mini h4{font-size:14px;font-weight:600;margin-bottom:14px}
-.conv{display:flex;align-items:center;justify-content:space-between;padding:9px 0;border-bottom:1px solid var(--borda);font-size:13px}
-.conv:last-child{border:none}
-.conv .who{display:flex;align-items:center;gap:10px}
-.conv .cav{width:28px;height:28px;border-radius:50%;background:var(--surface2);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;color:var(--roxo)}
-.conv .who span{display:block;font-size:11px;color:var(--cinza)}
-.tagbot{font-size:10.5px;font-weight:600;color:var(--roxo);background:rgba(139,92,246,.12);padding:3px 10px;border-radius:100px}
-.tagw{font-size:10.5px;font-weight:600;color:#F59E0B;background:rgba(245,158,11,.1);padding:3px 10px;border-radius:100px}
-.pfeats{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:44px}
-.pfeat{display:flex;gap:14px;align-items:flex-start}
-.pfeat .pi{width:38px;height:38px;border-radius:10px;background:rgba(139,92,246,.12);display:flex;align-items:center;justify-content:center;font-size:17px;flex-shrink:0}
-.pfeat h4{font-size:15px;font-weight:600;margin-bottom:3px}
-.pfeat p{font-size:13.5px;color:var(--cinza)}
-@media(max-width:920px){.kpis{grid-template-columns:1fr 1fr}.rows2{grid-template-columns:1fr}.pfeats{grid-template-columns:1fr}.browser .body{padding:20px}}
+/* Holofote que segue o ponteiro — posição conduzida por spring no JS */
+.spotlight{
+  position:absolute;left:0;top:0;z-index:1;
+  width:22rem;height:22rem;border-radius:50%;
+  pointer-events:none;opacity:0;
+  background:radial-gradient(circle at center,rgba(214,199,255,.20),rgba(139,92,246,.09) 42%,transparent 76%);
+  filter:blur(30px);
+  transition:opacity .28s var(--ease-out);
+  will-change:transform,opacity;
+}
+
+.stage-3d{position:relative;z-index:2;align-self:stretch;min-height:22rem}
+#spline3d{
+  position:absolute;inset:0;width:100%;height:100%;
+  opacity:0;transition:opacity .8s var(--ease-out);
+}
+#spline3d.ready{opacity:1}
+
+/* Poster: o que aparece antes de carregar — e o que fica pra sempre
+   em celular, conexão fraca ou reduced-motion, quando o 3D não sobe. */
+.stage-poster{
+  position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+  background:radial-gradient(60% 60% at 50% 45%,rgba(139,92,246,.26),transparent 68%);
+  transition:opacity .6s var(--ease-out);
+}
+.stage-poster.hidden{opacity:0;pointer-events:none}
+.stage-poster .mark{
+  width:clamp(5rem,11vw,8rem);height:auto;color:#B79CFF;
+  filter:drop-shadow(0 12px 40px rgba(139,92,246,.5));
+}
+
+@media(max-width:57.5rem){
+  .stage{grid-template-columns:1fr;min-height:0}
+  .stage-3d{min-height:17rem;order:-1}
+  .spotlight{display:none}
+}
+
+.stats{display:flex;gap:clamp(1.5rem,3.5vw,2.75rem);margin-top:2.75rem;flex-wrap:wrap}
+.stat b{
+  display:block;font-size:1.875rem;font-weight:700;line-height:1.1;
+  letter-spacing:-.03em;font-variant-numeric:tabular-nums;
+}
+.stat b em{font-style:normal;color:var(--accent-text)}
+.stat span{display:block;font-size:.8125rem;line-height:1.4;letter-spacing:.002em;color:var(--label-2);max-width:11rem;margin-top:.25rem}
+@media(max-width:57.5rem){.hero .wrap{grid-template-columns:1fr}.hero .display{max-width:none}}
+
+/* ---------- PHONE ---------- */
+.phone{
+  width:21.25rem;max-width:100%;margin:0 auto;
+  background:linear-gradient(180deg,#F4F4F7,#DCDCE3);
+  border:1px solid rgba(0,0,0,.09);
+  border-radius:2.75rem;padding:.75rem;
+  box-shadow:var(--sh-3),inset 0 1px 0 rgba(255,255,255,.95);
+}
+.phone .screen{
+  background:#EFE5DD;border-radius:2.125rem;overflow:hidden;
+  display:flex;flex-direction:column;height:33.75rem;
+}
+.chat-head{
+  background:rgba(240,242,245,.88);
+  backdrop-filter:blur(20px) saturate(180%);
+  -webkit-backdrop-filter:blur(20px) saturate(180%);
+  display:flex;align-items:center;gap:.625rem;padding:.75rem .875rem;
+  box-shadow:var(--edge);
+}
+.chat-head .av{
+  width:2.375rem;height:2.375rem;border-radius:50%;
+  background:linear-gradient(145deg,#9B6DFF,#6D3FE0);
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+  box-shadow:0 2px 8px rgba(0,0,0,.4),inset 0 1px 0 rgba(255,255,255,.25);
+  color:#fff;
+}
+.chat-head .av .mark{width:1.0625rem;height:1.25rem}
+.chat-head .nm{font-size:.90625rem;font-weight:600;line-height:1.2;letter-spacing:-.008em}
+.chat-head .st{display:flex;align-items:center;gap:.3125rem;font-size:.71875rem;color:var(--wa);letter-spacing:.004em}
+.chat-body{flex:1;padding:1rem .75rem;display:flex;flex-direction:column;gap:.4375rem;overflow:hidden;justify-content:flex-end}
+
+/* Mensagem se materializa: blur + escala + posição juntos (§12) */
+.msg{
+  max-width:82%;padding:.5rem .75rem;border-radius:.75rem;
+  font-size:.8125rem;line-height:1.45;letter-spacing:-.002em;
+  opacity:0;transform:translateY(.625rem) scale(.94);filter:blur(6px);
+  transition:opacity .42s var(--ease-out),transform .52s var(--ease-out),filter .42s var(--ease-out);
+  box-shadow:0 1px 1px rgba(0,0,0,.11);
+  color:#111B21;
+}
+.msg.shown{opacity:1;transform:none;filter:none}
+.msg.in{background:#fff;align-self:flex-start;border-top-left-radius:.1875rem;transform-origin:left bottom}
+.msg.out{background:#D9FDD3;align-self:flex-end;border-top-right-radius:.1875rem;transform-origin:right bottom}
+.msg .t{display:block;font-size:.625rem;color:rgba(0,0,0,.42);text-align:right;margin-top:.1875rem;font-variant-numeric:tabular-nums}
+.typing{align-self:flex-start;background:#fff;border-radius:.75rem;padding:.625rem .875rem;display:none;gap:.25rem;box-shadow:0 1px 1px rgba(0,0,0,.11)}
+.typing i{width:.375rem;height:.375rem;border-radius:50%;background:#667781;display:inline-block;animation:pulse 1.2s infinite}
+.typing i:nth-child(2){animation-delay:.16s}
+.typing i:nth-child(3){animation-delay:.32s}
+@keyframes pulse{0%,60%,100%{opacity:.3;transform:scale(.85)}30%{opacity:1;transform:scale(1)}}
+
+.chat-tag{
+  background:var(--elev-2);
+  border:1px solid var(--sep);border-radius:100px;
+  padding:.5rem 1.0625rem;font-size:.78125rem;color:var(--label-2);
+  width:max-content;max-width:100%;margin:1.125rem auto 0;
+  display:flex;gap:.5rem;align-items:center;box-shadow:var(--edge);
+}
+.dot{width:.4375rem;height:.4375rem;border-radius:50%;background:var(--wa);flex-shrink:0;animation:pulse 1.8s infinite}
+
+/* ---------- PROBLEMA ---------- */
+/* a mudança de tom já separa a seção — a borda de 1px vira ruído */
+.problema{background:var(--elev-1)}
+.problema h2{max-width:44rem;margin-bottom:3.25rem}
+.dores{display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem}
+/* a seção é cinza, então o card precisa ser branco pra existir */
+.dor{--press:1;padding:2rem 1.75rem;transform:scale(var(--press));will-change:transform;background:var(--elev-2)}
+.dor .idx{
+  display:block;font-size:.8125rem;font-weight:700;letter-spacing:.06em;
+  color:var(--accent-text);margin-bottom:.875rem;font-variant-numeric:tabular-nums;
+}
+.dor h3{margin-bottom:.625rem}
+.dor p{font-size:.9375rem;line-height:1.55;color:var(--label-2)}
+.cta-center{text-align:center;margin-top:3rem}
+@media(max-width:63.75rem){.dores{grid-template-columns:1fr 1fr}}
+@media(max-width:52rem){.dores{grid-template-columns:1fr}}
+
+/* ---------- ESTEIRA ---------- */
+.esteira .lead{margin-bottom:4rem}
+.esteira h2{margin-bottom:1rem}
+.pipe{display:grid;grid-template-columns:repeat(6,1fr);position:relative}
+.pipe::before{
+  content:'';position:absolute;top:1.6875rem;left:8%;right:8%;height:1px;
+  background:linear-gradient(90deg,transparent,var(--accent-line) 18%,var(--accent-line) 82%,transparent);
+}
+.step{--press:1;text-align:center;padding:0 .5rem;position:relative;transform:scale(var(--press));will-change:transform}
+.step .ico{
+  width:3.375rem;height:3.375rem;border-radius:1.0625rem;
+  background:var(--elev-1);
+  border:1px solid var(--sep);
+  display:flex;align-items:center;justify-content:center;
+  margin:0 auto 1rem;position:relative;z-index:1;font-size:1.3125rem;
+  box-shadow:var(--sh-1),var(--edge);
+}
+.step.hl .ico{
+  background:linear-gradient(160deg,#9B6DFF,#6D3FE0);
+  border-color:transparent;
+  box-shadow:0 0 0 4px rgba(109,63,224,.1),0 8px 20px -6px rgba(109,63,224,.42),inset 0 1px 0 rgba(255,255,255,.3);
+}
+.step h4{margin-bottom:.375rem}
+.step p{font-size:.78125rem;line-height:1.45;color:var(--label-2);letter-spacing:.002em}
+@media(max-width:57.5rem){.pipe{grid-template-columns:repeat(3,1fr);gap:2rem 0}.pipe::before{display:none}}
+@media(max-width:35rem){.pipe{grid-template-columns:repeat(2,1fr)}}
+/* a esteira explica o fluxo; o celular mostra ele acontecendo */
+.demo-fone{margin-top:clamp(3rem,6vw,4.5rem)}
+
+/* ---------- PAINEL ----------
+   Única seção escura da página: quebra o branco e faz a tela do produto
+   brilhar. Os tokens são redefinidos no escopo, então tudo que está
+   dentro inverte junto sem uma linha de exceção. */
+.painel{
+  background:#111114;
+  color:var(--label);
+  --label:#F5F5F7;
+  --label-2:rgba(235,235,245,.66);
+  --label-3:rgba(235,235,245,.56);
+  --sep:rgba(255,255,255,.13);
+  --elev-1:#232329;
+  --elev-2:#1A1A1F;
+  --edge:inset 0 1px 0 rgba(255,255,255,.07);
+  --accent-text:#BCA4FF;
+  --accent-soft:rgba(139,92,246,.16);
+  --accent-line:rgba(139,92,246,.38);
+  --green:#30D158;
+  --green-fill:#34C759;
+  --orange:#FF9F0A;
+  --sh-3:0 4px 14px rgba(0,0,0,.5),0 40px 90px -30px rgba(0,0,0,.85);
+}
+.painel h2{margin-bottom:1rem}
+.painel .lead{margin-bottom:3.5rem}
+.painel .browser .bar{background:rgba(40,40,47,.82)}
+.painel .browser .bar .url{background:rgba(0,0,0,.32)}
+.painel .pill{background:rgba(48,209,88,.13);border-color:rgba(48,209,88,.36)}
+.browser{
+  background:var(--elev-2);
+  border:1px solid var(--sep);
+  border-radius:var(--r-lg);overflow:hidden;
+  box-shadow:var(--sh-3),var(--edge);
+}
+.browser .bar{
+  background:rgba(246,246,248,.82);
+  backdrop-filter:blur(20px) saturate(180%);
+  -webkit-backdrop-filter:blur(20px) saturate(180%);
+  padding:.75rem 1.125rem;display:flex;align-items:center;gap:.5rem;
+  border-bottom:1px solid var(--sep);box-shadow:var(--edge);
+}
+.browser .bar i{width:.6875rem;height:.6875rem;border-radius:50%;display:inline-block}
+.browser .bar i:nth-child(1){background:#FF5F57}
+.browser .bar i:nth-child(2){background:#FEBC2E}
+.browser .bar i:nth-child(3){background:#28C840}
+.browser .bar .url{
+  margin-left:.875rem;background:#fff;border:1px solid var(--sep);
+  border-radius:.5rem;padding:.3125rem 1rem;font-size:.78125rem;color:var(--label-2);
+}
+.browser .body{padding:2rem}
+.head-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:1.625rem;flex-wrap:wrap;gap:.75rem}
+.head-row h3{margin-bottom:.125rem}
+.head-row p{font-size:.8125rem;color:var(--label-2)}
+.pill{
+  display:inline-flex;align-items:center;gap:.4375rem;
+  background:rgba(52,199,89,.13);border:1px solid rgba(52,199,89,.42);
+  color:var(--green);font-size:.78125rem;font-weight:600;letter-spacing:-.004em;
+  padding:.375rem .875rem;border-radius:100px;
+}
+.pill .dot{background:var(--green-fill)}
+.kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem}
+.kpi{
+  --press:1;
+  background:var(--elev-1);border:1px solid var(--sep);border-radius:var(--r-sm);
+  padding:1.25rem;transform:scale(var(--press));will-change:transform;box-shadow:var(--edge);
+}
+.kpi .k{display:block;font-size:.78125rem;color:var(--label-2);margin-bottom:.5rem;letter-spacing:.002em}
+.kpi b{
+  display:block;font-size:1.875rem;font-weight:700;line-height:1.1;
+  letter-spacing:-.03em;font-variant-numeric:tabular-nums;
+}
+.kpi small{display:block;font-size:.71875rem;color:var(--label-3);margin-top:.125rem;letter-spacing:.004em}
+.kpi.hl{background:var(--accent-soft);border-color:var(--accent-line)}
+.kpi.hl b{color:var(--accent-text)}
+.kpi.warn b{color:var(--orange)}
+.kpi.ok b{color:var(--green)}
+.pfeats{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:2.75rem}
+.pfeat{display:flex;gap:.875rem;align-items:flex-start}
+.pfeat .pi{
+  width:2.375rem;height:2.375rem;border-radius:.6875rem;
+  background:var(--accent-soft);border:1px solid var(--accent-line);
+  display:flex;align-items:center;justify-content:center;font-size:1.0625rem;flex-shrink:0;
+}
+.pfeat h4{margin-bottom:.1875rem}
+.pfeat p{font-size:.84375rem;line-height:1.5;color:var(--label-2)}
+@media(max-width:57.5rem){
+  .kpis{grid-template-columns:1fr 1fr}
+  .pfeats{grid-template-columns:1fr}
+  .browser .body{padding:1.25rem}
+}
+
+/* ---------- SOBRE ---------- */
+.sobre{background:var(--elev-1)}
+.sobre .wrap{
+  display:grid;grid-template-columns:.82fr 1.18fr;
+  gap:clamp(2.5rem,5vw,4.5rem);align-items:center;
+}
+.sobre-foto{
+  border-radius:var(--r-lg);overflow:hidden;
+  background:var(--elev-2);border:1px solid var(--sep);
+  box-shadow:var(--sh-2);
+  /* a proporção já está no width/height do <img>: sem reflow ao carregar */
+}
+.sobre-foto img{width:100%;height:auto;display:block}
+.sobre-papel{
+  font-size:clamp(1.0625rem,1.6vw,1.1875rem);font-weight:600;
+  line-height:1.4;letter-spacing:-.016em;
+  color:var(--accent-text);margin-bottom:1.5rem;
+}
+.sobre-texto{display:flex;flex-direction:column;gap:1rem;max-width:36rem}
+.sobre-texto p{font-size:1rem;line-height:1.6;color:var(--label-2)}
+.assinatura{
+  margin-top:1.75rem;padding-left:1.125rem;
+  border-left:3px solid var(--accent);
+  font-size:clamp(1rem,1.5vw,1.125rem);font-weight:600;
+  line-height:1.4;letter-spacing:-.018em;color:var(--label);
+}
+@media(max-width:53.75rem){
+  .sobre .wrap{grid-template-columns:1fr}
+  .sobre-foto{max-width:24rem;margin:0 auto}
+}
+
+/* ---------- CAPTURA ---------- */
+.captura{position:relative}
+.captura .wrap{display:grid;grid-template-columns:1fr 1fr;gap:clamp(2.5rem,5vw,4.5rem);align-items:start}
+.captura h2{margin-bottom:1.125rem}
+.captura .lead{margin-bottom:2rem}
+.check{list-style:none;display:flex;flex-direction:column;gap:.875rem}
+.check li{display:flex;gap:.75rem;font-size:.96875rem;line-height:1.5;color:var(--label)}
+.check li svg{width:1.125rem;height:1.125rem;flex-shrink:0;margin-top:.1875rem;color:var(--accent-text)}
+.bonus{
+  margin-top:1.75rem;background:var(--accent-soft);border:1px solid var(--accent-line);
+  border-radius:var(--r-sm);padding:1.25rem 1.375rem;
+}
+.bonus b{display:block;font-size:.96875rem;font-weight:600;letter-spacing:-.012em;margin-bottom:.25rem}
+.bonus p{font-size:.90625rem;line-height:1.5;color:var(--label-2)}
+
+form{padding:2.5rem 2.25rem;border-radius:var(--r-lg)}
+form h3{margin-bottom:1.625rem}
+.field{margin-bottom:1.125rem}
+.field label{display:block;font-size:.84375rem;color:var(--label-2);margin-bottom:.4375rem;font-weight:500;letter-spacing:.002em}
+.field input,.field select{
+  width:100%;
+  background:#fff;
+  border:1px solid var(--sep);
+  border-radius:var(--r-xs);
+  padding:.8125rem .9375rem;
+  color:var(--label);font:inherit;font-size:1rem;letter-spacing:-.008em;
+  transition:border-color .2s var(--ease-out),background .2s var(--ease-out),box-shadow .2s var(--ease-out);
+}
+.field input::placeholder{color:var(--label-3)}
+.field input:focus,.field select:focus{
+  outline:none;border-color:var(--accent);
+  background:#fff;
+  box-shadow:0 0 0 4px rgba(109,63,224,.15);
+}
+.field select{appearance:none;cursor:pointer;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 8' fill='none'%3E%3Cpath d='M1 1.5L6 6.5L11 1.5' stroke='%236E6E73' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:right 1rem center;background-size:.75rem;
+  padding-right:2.5rem;
+}
+/* validação inline, no blur — avisa antes do erro virar problema (§16) */
+.field.invalid input,.field.invalid select{border-color:var(--red);box-shadow:0 0 0 4px rgba(215,0,21,.13)}
+.field .err{
+  display:block;font-size:.75rem;color:var(--red);margin-top:.375rem;
+  opacity:0;transform:translateY(-.25rem);
+  transition:opacity .2s var(--ease-out),transform .2s var(--ease-out);
+}
+.field.invalid .err{opacity:1;transform:none}
+form .priv{font-size:.75rem;color:var(--label-3);text-align:center;margin-top:.875rem;line-height:1.45}
+form .btn{margin-top:.5rem}
+@media(max-width:53.75rem){.captura .wrap{grid-template-columns:1fr}form{padding:2rem 1.5rem}}
+
+/* ---------- CATÁLOGO ---------- */
+.catmock{border-radius:var(--r-md);overflow:hidden;margin-top:1.75rem}
+.catmock .ch{display:flex;align-items:center;justify-content:space-between;padding:.875rem 1.125rem;border-bottom:1px solid var(--sep);gap:.75rem}
+.catmock .st{display:flex;align-items:center;gap:.625rem;min-width:0}
+.catmock .ini{
+  width:2rem;height:2rem;border-radius:.625rem;flex-shrink:0;
+  background:linear-gradient(160deg,#9B6DFF,#6D3FE0);
+  display:flex;align-items:center;justify-content:center;
+  font-weight:700;font-size:.8125rem;letter-spacing:-.01em;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.25);
+}
+.catmock .st b{font-size:.875rem;font-weight:600;letter-spacing:-.01em;min-width:0}
+.catmock .st b span{display:block;font-size:.65625rem;color:var(--label-3);font-weight:400;letter-spacing:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.wapill{
+  display:flex;align-items:center;gap:.375rem;flex-shrink:0;
+  background:rgba(18,140,126,.09);border:1px solid rgba(18,140,126,.3);
+  color:var(--wa);font-size:.71875rem;font-weight:600;padding:.375rem .75rem;border-radius:100px;
+}
+/* trilho com momentum nativo e snap suave */
+.catmock .chips{
+  display:flex;gap:.375rem;padding:.75rem 1.125rem 0;
+  overflow-x:auto;scroll-snap-type:x proximity;
+  -webkit-overflow-scrolling:touch;scrollbar-width:none;
+}
+.catmock .chips::-webkit-scrollbar{display:none}
+.catmock .chip{
+  scroll-snap-align:start;flex-shrink:0;
+  font-size:.6875rem;padding:.3125rem .8125rem;border-radius:100px;
+  border:1px solid var(--sep);color:var(--label-2);letter-spacing:.004em;
+}
+.catmock .chip.on{background:var(--accent-fill);border-color:transparent;color:#fff;font-weight:600;box-shadow:var(--edge)}
+.catmock .prods{display:grid;grid-template-columns:1fr 1fr;gap:.75rem;padding:.875rem 1.125rem 1.125rem}
+.catmock .prod{background:#fff;border:1px solid var(--sep);border-radius:.75rem;overflow:hidden}
+.catmock .prod .ph{
+  height:4.625rem;
+  background:linear-gradient(140deg,rgba(109,63,224,.13),rgba(109,63,224,.05));
+  display:flex;align-items:center;justify-content:center;font-size:1.875rem;
+}
+.catmock .prod .pi2{padding:.625rem .75rem}
+.catmock .prod small{display:block;font-size:.65625rem;color:var(--label-3);margin-top:.125rem}
+.catmock .prod .pr{display:flex;align-items:center;justify-content:space-between;margin-top:.4375rem;gap:.5rem}
+.catmock .prod .pr b{font-size:.8125rem;color:var(--green);font-variant-numeric:tabular-nums}
+.catmock .prod .pr span{font-size:.65625rem;color:var(--accent-text);font-weight:600;white-space:nowrap}
+.catmock .cf{text-align:center;font-size:.65625rem;color:var(--label-3);padding:0 0 .875rem}
+
+/* ---------- FOOTER ---------- */
+footer{border-top:1px solid var(--sep);padding:2.5rem 0;background:var(--elev-1)}
+footer .wrap{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1.25rem}
+footer p{font-size:.84375rem;color:var(--label-3);line-height:1.5}
+
+/* ---------- REVELAÇÃO AO ROLAR ----------
+   Entrada e saída pelo mesmo eixo; escalonamento por índice. */
+[data-reveal]{
+  opacity:0;transform:translateY(1.5rem);
+  transition:opacity .7s var(--ease-out),transform .8s var(--ease-out);
+  transition-delay:calc(var(--i,0) * 55ms);
+}
+[data-reveal].in{opacity:1;transform:none}
+
+/* ---------- ACESSIBILIDADE ----------
+   Três sinais independentes, cada um com seu tratamento (§14). */
+@media(prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{
+    animation-duration:.01ms !important;animation-iteration-count:1 !important;
+    transition-duration:.15s !important;
+  }
+  [data-reveal]{opacity:1;transform:none;transition:none}
+  .msg{opacity:1;transform:none;filter:none;transition:opacity .15s linear}
+  .btn,.dor,.step,.kpi{transform:none !important}
+  #kgrid{display:none}
+}
+@media(prefers-reduced-transparency:reduce){
+  nav::before{background:#fff;backdrop-filter:none;-webkit-backdrop-filter:none;opacity:1}
+  .browser .bar{background:var(--elev-1);backdrop-filter:none;-webkit-backdrop-filter:none}
+  .chat-head{background:#F0F2F5;backdrop-filter:none;-webkit-backdrop-filter:none}
+  #kgrid{display:none}
+}
+@media(prefers-contrast:more){
+  :root{
+    --label-2:#4A4A4F;
+    --label-3:#5C5C61;
+    --sep:rgba(0,0,0,.32);
+    --accent-text:#4A21BD;
+    --accent-fill:#4A21BD;
+  }
+  .card,.glass,.kpi,.dor,.step .ico{background:#fff}
+  nav::before{opacity:1;background:#fff;backdrop-filter:none;-webkit-backdrop-filter:none}
+}
 </style>
 </head>
 <body>
 
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <symbol id="sis-mark" viewBox="0 0 560 650">
+    <g transform="translate(0.000000,650.000000) scale(0.100000,-0.100000)" fill="currentColor"><path d="M2726 6289 c-52 -12 -127 -59 -212 -134 -7 -5 -25 -20 -40 -32 -27 -20 -130 -104 -238 -193 -24 -19 -88 -71 -142 -114 -54 -44 -180 -148 -279 -230 -99 -83 -196 -163 -215 -178 -178 -136 -347 -282 -382 -329 -59 -80 -58 -56 -58 -953 0 -518 4 -838 11 -866 9 -41 70 -146 94 -162 14 -9 163 -129 271 -218 50 -41 108 -88 129 -105 22 -16 58 -46 80 -65 23 -19 59 -49 81 -67 21 -17 77 -63 124 -102 47 -39 88 -71 91 -71 4 0 41 28 84 63 43 34 93 73 111 87 62 48 287 235 338 282 l51 47 -30 26 c-17 15 -75 63 -130 107 -55 45 -138 113 -185 152 -47 39 -105 87 -130 107 -25 20 -61 51 -80 69 -19 18 -59 52 -90 76 -92 72 -85 23 -88 604 -2 283 0 530 3 548 8 45 57 96 199 210 67 54 142 115 167 137 26 22 97 81 160 130 62 50 134 108 160 130 200 170 216 172 374 45 106 -85 120 -90 151 -62 10 10 55 47 99 82 44 36 165 135 269 220 l188 155 -38 30 c-20 16 -110 90 -198 162 -89 73 -185 152 -214 175 -29 24 -71 59 -95 78 -193 158 -266 188 -391 159z M3790 5471 c-55 -9 -114 -39 -173 -88 -24 -21 -83 -69 -131 -108 -48 -38 -99 -80 -114 -93 -15 -13 -81 -67 -147 -120 -66 -53 -129 -105 -140 -114 -11 -9 -52 -43 -91 -75 -40 -32 -116 -94 -169 -138 -53 -44 -208 -171 -343 -283 -136 -112 -275 -228 -309 -258 l-63 -55 0 -242 c0 -278 -9 -249 109 -343 41 -32 96 -76 122 -98 l49 -39 37 29 c21 16 45 35 54 44 17 16 161 135 286 237 39 32 118 97 175 145 56 47 141 117 188 154 47 37 133 108 191 158 200 172 376 313 417 335 51 27 167 -2 203 -52 3 -4 19 -18 36 -30 42 -31 309 -246 375 -302 29 -25 58 -49 63 -53 12 -8 124 -98 174 -139 75 -61 71 21 71 -1202 l0 -1093 38 28 c20 15 100 80 177 144 77 64 200 165 273 225 151 123 172 146 208 221 43 91 45 135 42 1039 l-3 860 -31 65 c-35 71 -85 127 -183 205 -35 28 -96 77 -135 110 -39 34 -93 79 -121 100 -27 22 -79 65 -115 95 -36 30 -83 69 -104 85 -21 17 -48 38 -60 49 -11 10 -74 62 -139 115 -66 53 -142 115 -170 138 -29 23 -68 55 -87 70 -19 16 -77 64 -130 107 -162 135 -242 184 -280 175 -3 -1 -25 -5 -50 -8z M814 4752 c-60 -48 -118 -95 -129 -104 -100 -83 -265 -217 -285 -231 -61 -42 -134 -125 -164 -187 l-31 -65 2 -902 2 -902 27 -68 c38 -96 68 -130 238 -266 83 -66 153 -123 156 -126 3 -3 50 -42 105 -86 55 -44 102 -82 105 -85 3 -4 63 -53 135 -111 71 -57 184 -149 251 -204 66 -55 136 -112 155 -127 19 -15 82 -66 140 -114 57 -48 120 -94 139 -102 69 -29 180 -12 227 35 10 10 74 63 142 118 232 188 308 250 397 325 49 41 107 89 128 105 21 17 59 48 85 70 27 22 66 54 87 72 21 17 48 40 59 50 11 10 70 59 130 108 61 49 142 116 181 149 39 34 106 89 150 123 43 35 115 93 159 131 l80 68 2 225 c2 123 0 229 -5 234 -7 11 -159 138 -226 190 -79 62 -68 61 -127 12 -30 -24 -103 -83 -164 -132 -60 -49 -112 -92 -115 -95 -3 -4 -12 -11 -21 -16 -9 -5 -41 -30 -70 -55 -80 -69 -132 -112 -274 -229 -71 -58 -150 -123 -175 -145 -26 -22 -77 -65 -115 -95 -38 -30 -122 -100 -188 -155 -198 -166 -235 -183 -312 -144 -22 12 -43 25 -46 30 -3 6 -19 20 -36 32 -36 25 -286 227 -419 337 -50 41 -120 99 -157 129 -106 86 -97 -20 -97 1218 0 618 -4 1073 -9 1073 -5 0 -58 -39 -117 -88z M3462 4035 c-24 -19 -61 -49 -81 -67 -21 -18 -46 -40 -57 -48 -18 -14 -114 -93 -291 -238 -45 -37 -82 -71 -82 -77 0 -5 36 -39 81 -75 44 -36 94 -77 112 -92 17 -14 74 -61 127 -105 341 -276 398 -326 414 -359 15 -32 16 -91 15 -565 0 -291 -5 -540 -9 -552 -13 -32 -155 -158 -376 -334 -11 -9 -49 -41 -85 -72 -36 -31 -87 -74 -114 -96 -27 -22 -95 -77 -150 -123 -157 -128 -179 -127 -348 9 -62 49 -118 89 -126 89 -8 0 -53 -33 -101 -73 -49 -39 -134 -110 -190 -157 -56 -47 -122 -101 -146 -120 -99 -80 -135 -116 -135 -132 0 -10 3 -18 8 -18 4 0 32 -22 63 -48 31 -26 73 -60 94 -77 22 -16 79 -64 129 -105 164 -137 197 -165 230 -190 18 -14 76 -60 128 -102 187 -153 299 -146 508 33 47 40 107 90 135 112 27 21 74 60 105 87 30 26 89 75 130 109 105 87 163 135 498 412 53 44 108 90 122 102 14 13 54 45 89 72 192 151 242 208 268 308 21 82 19 1673 -2 1745 -17 55 -119 172 -195 223 -19 13 -73 55 -119 94 -46 38 -116 95 -156 125 -39 30 -79 62 -87 70 -9 8 -40 34 -70 57 -29 24 -101 81 -160 128 -58 47 -112 85 -120 84 -7 0 -33 -15 -56 -34z"/></g>
+  </symbol>
+  <symbol id="ic-check" viewBox="0 0 20 20">
+    <path d="M4 10.5l4 4 8-9" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+  </symbol>
+</svg>
+
 <nav>
   <div class="wrap">
-    <a class="logo" href="#">
-      <svg viewBox="0 0 560 650"><g transform="translate(0.000000,650.000000) scale(0.100000,-0.100000)" fill="#8B5CF6"><path d="M2726 6289 c-52 -12 -127 -59 -212 -134 -7 -5 -25 -20 -40 -32 -27 -20 -130 -104 -238 -193 -24 -19 -88 -71 -142 -114 -54 -44 -180 -148 -279 -230 -99 -83 -196 -163 -215 -178 -178 -136 -347 -282 -382 -329 -59 -80 -58 -56 -58 -953 0 -518 4 -838 11 -866 9 -41 70 -146 94 -162 14 -9 163 -129 271 -218 50 -41 108 -88 129 -105 22 -16 58 -46 80 -65 23 -19 59 -49 81 -67 21 -17 77 -63 124 -102 47 -39 88 -71 91 -71 4 0 41 28 84 63 43 34 93 73 111 87 62 48 287 235 338 282 l51 47 -30 26 c-17 15 -75 63 -130 107 -55 45 -138 113 -185 152 -47 39 -105 87 -130 107 -25 20 -61 51 -80 69 -19 18 -59 52 -90 76 -92 72 -85 23 -88 604 -2 283 0 530 3 548 8 45 57 96 199 210 67 54 142 115 167 137 26 22 97 81 160 130 62 50 134 108 160 130 200 170 216 172 374 45 106 -85 120 -90 151 -62 10 10 55 47 99 82 44 36 165 135 269 220 l188 155 -38 30 c-20 16 -110 90 -198 162 -89 73 -185 152 -214 175 -29 24 -71 59 -95 78 -193 158 -266 188 -391 159z M3790 5471 c-55 -9 -114 -39 -173 -88 -24 -21 -83 -69 -131 -108 -48 -38 -99 -80 -114 -93 -15 -13 -81 -67 -147 -120 -66 -53 -129 -105 -140 -114 -11 -9 -52 -43 -91 -75 -40 -32 -116 -94 -169 -138 -53 -44 -208 -171 -343 -283 -136 -112 -275 -228 -309 -258 l-63 -55 0 -242 c0 -278 -9 -249 109 -343 41 -32 96 -76 122 -98 l49 -39 37 29 c21 16 45 35 54 44 17 16 161 135 286 237 39 32 118 97 175 145 56 47 141 117 188 154 47 37 133 108 191 158 200 172 376 313 417 335 51 27 167 -2 203 -52 3 -4 19 -18 36 -30 42 -31 309 -246 375 -302 29 -25 58 -49 63 -53 12 -8 124 -98 174 -139 75 -61 71 21 71 -1202 l0 -1093 38 28 c20 15 100 80 177 144 77 64 200 165 273 225 151 123 172 146 208 221 43 91 45 135 42 1039 l-3 860 -31 65 c-35 71 -85 127 -183 205 -35 28 -96 77 -135 110 -39 34 -93 79 -121 100 -27 22 -79 65 -115 95 -36 30 -83 69 -104 85 -21 17 -48 38 -60 49 -11 10 -74 62 -139 115 -66 53 -142 115 -170 138 -29 23 -68 55 -87 70 -19 16 -77 64 -130 107 -162 135 -242 184 -280 175 -3 -1 -25 -5 -50 -8z M814 4752 c-60 -48 -118 -95 -129 -104 -100 -83 -265 -217 -285 -231 -61 -42 -134 -125 -164 -187 l-31 -65 2 -902 2 -902 27 -68 c38 -96 68 -130 238 -266 83 -66 153 -123 156 -126 3 -3 50 -42 105 -86 55 -44 102 -82 105 -85 3 -4 63 -53 135 -111 71 -57 184 -149 251 -204 66 -55 136 -112 155 -127 19 -15 82 -66 140 -114 57 -48 120 -94 139 -102 69 -29 180 -12 227 35 10 10 74 63 142 118 232 188 308 250 397 325 49 41 107 89 128 105 21 17 59 48 85 70 27 22 66 54 87 72 21 17 48 40 59 50 11 10 70 59 130 108 61 49 142 116 181 149 39 34 106 89 150 123 43 35 115 93 159 131 l80 68 2 225 c2 123 0 229 -5 234 -7 11 -159 138 -226 190 -79 62 -68 61 -127 12 -30 -24 -103 -83 -164 -132 -60 -49 -112 -92 -115 -95 -3 -4 -12 -11 -21 -16 -9 -5 -41 -30 -70 -55 -80 -69 -132 -112 -274 -229 -71 -58 -150 -123 -175 -145 -26 -22 -77 -65 -115 -95 -38 -30 -122 -100 -188 -155 -198 -166 -235 -183 -312 -144 -22 12 -43 25 -46 30 -3 6 -19 20 -36 32 -36 25 -286 227 -419 337 -50 41 -120 99 -157 129 -106 86 -97 -20 -97 1218 0 618 -4 1073 -9 1073 -5 0 -58 -39 -117 -88z M3462 4035 c-24 -19 -61 -49 -81 -67 -21 -18 -46 -40 -57 -48 -18 -14 -114 -93 -291 -238 -45 -37 -82 -71 -82 -77 0 -5 36 -39 81 -75 44 -36 94 -77 112 -92 17 -14 74 -61 127 -105 341 -276 398 -326 414 -359 15 -32 16 -91 15 -565 0 -291 -5 -540 -9 -552 -13 -32 -155 -158 -376 -334 -11 -9 -49 -41 -85 -72 -36 -31 -87 -74 -114 -96 -27 -22 -95 -77 -150 -123 -157 -128 -179 -127 -348 9 -62 49 -118 89 -126 89 -8 0 -53 -33 -101 -73 -49 -39 -134 -110 -190 -157 -56 -47 -122 -101 -146 -120 -99 -80 -135 -116 -135 -132 0 -10 3 -18 8 -18 4 0 32 -22 63 -48 31 -26 73 -60 94 -77 22 -16 79 -64 129 -105 164 -137 197 -165 230 -190 18 -14 76 -60 128 -102 187 -153 299 -146 508 33 47 40 107 90 135 112 27 21 74 60 105 87 30 26 89 75 130 109 105 87 163 135 498 412 53 44 108 90 122 102 14 13 54 45 89 72 192 151 242 208 268 308 21 82 19 1673 -2 1745 -17 55 -119 172 -195 223 -19 13 -73 55 -119 94 -46 38 -116 95 -156 125 -39 30 -79 62 -87 70 -9 8 -40 34 -70 57 -29 24 -101 81 -160 128 -58 47 -112 85 -120 84 -7 0 -33 -15 -56 -34z"/></g></svg>
-      <span>SIS <b>AI</b></span>
+    <a class="logo" href="#hero" aria-label="SIS AI — início">
+      <svg class="mark" aria-hidden="true"><use href="#sis-mark"/></svg>
+      <span class="wordmark">SIS <b>AI</b></span>
     </a>
     <div class="links">
       <a href="#esteira">Como funciona</a>
       <a href="#painel">O sistema</a>
-      <a href="#diagnostico" class="btn">Diagnóstico gratuito</a>
+      <a href="#sobre">Quem é Felipe</a>
+      <a href="#diagnostico" class="btn" data-press>Diagnóstico gratuito</a>
     </div>
   </div>
 </nav>
 
 <header class="hero" id="hero">
-<canvas id="kgrid"></canvas>
+  <canvas id="kgrid" aria-hidden="true"></canvas>
   <div class="wrap">
-    <div>
-      <span class="eyebrow">Atendimento com IA · 24 horas, 7 dias</span>
-      <h1>Atendimento inteligente <span class="roxo">24h</span> que transforma leads em clientes.</h1>
-      <p class="sub">A SIS AI coloca um agente de IA atendendo seu WhatsApp 24 horas por dia, 7 dias por semana. Responde em segundos, qualifica, agenda e faz follow-up sozinho — sua equipe só entra pra fechar a venda.</p>
-      <div class="ctas">
-        <a href="#diagnostico" class="btn">Quero um diagnóstico gratuito</a>
-        <a href="#esteira" class="btn btn-ghost">Ver como funciona</a>
+    <div class="stage" id="stage">
+      <div class="spotlight" aria-hidden="true"></div>
+      <div class="stage-copy">
+        <span class="eyebrow" data-reveal>Nova era dos negócios</span>
+        <h1 class="display" data-reveal style="--i:1">IA e atendimento <span class="accent">24h</span>. A nova era dos negócios já começou.</h1>
+        <p class="lead sub" data-reveal style="--i:2">A SIS AI coloca um agente de inteligência artificial no seu WhatsApp. Ele responde em segundos, qualifica o lead, agenda a visita e faz o follow-up sozinho — sua equipe só entra pra fechar a venda.</p>
+        <div class="ctas" data-reveal style="--i:3">
+          <a href="#diagnostico" class="btn" data-press>Quero um diagnóstico gratuito</a>
+          <a href="#esteira" class="btn btn-ghost" data-press>Ver como funciona</a>
+        </div>
       </div>
-      <div class="stats">
-        <div class="stat"><b>5<em>s</em></b><span>para responder qualquer lead</span></div>
-        <div class="stat"><b>24<em>/7</em></b><span>sem folga, férias ou turnover</span></div>
-        <div class="stat"><b>78<em>%</em></b><span>compram de quem responde primeiro</span></div>
+      <div class="stage-3d">
+        <div class="stage-poster" id="stage-poster">
+          <svg class="mark" aria-hidden="true"><use href="#sis-mark"/></svg>
+        </div>
+        <canvas id="spline3d" aria-hidden="true"></canvas>
       </div>
     </div>
-    <div>
+    <div class="stats" data-reveal style="--i:4">
+      <div class="stat"><b>5<em>s</em></b><span>para responder qualquer lead</span></div>
+      <div class="stat"><b>24<em>/7</em></b><span>sem folga, férias ou turnover</span></div>
+      <div class="stat"><b>78<em>%</em></b><span>compram de quem responde primeiro</span></div>
+    </div>
+  </div>
+</header>
+
+<section class="problema">
+  <div class="wrap">
+    <span class="eyebrow" data-reveal>O problema</span>
+    <h2 data-reveal style="--i:1">Todo dia sai dinheiro pelo seu atendimento. Você só não vê acontecer.</h2>
+    <div class="dores">
+      <div class="dor card" data-reveal data-press style="--i:2"><span class="idx num">01</span><h3>O lead chega quando você não está</h3><p>Boa parte das mensagens cai à noite, no domingo, no feriado. Sem resposta na hora, o cliente segue pro concorrente — e não volta.</p></div>
+      <div class="dor card" data-reveal data-press style="--i:3"><span class="idx num">02</span><h3>Velocidade decide a venda</h3><p>Responder em minutos multiplica a chance de fechar. Depois de uma hora, o interesse esfriou e a venda já era.</p></div>
+      <div class="dor card" data-reveal data-press style="--i:4"><span class="idx num">03</span><h3>Cada lead custou dinheiro</h3><p>Você pagou pelo clique. Lead sem resposta é anúncio pago pro concorrente vender.</p></div>
+    </div>
+    <div class="cta-center" data-reveal style="--i:5"><a href="#diagnostico" class="btn" data-press>Quero atendimento 24h no meu WhatsApp</a></div>
+  </div>
+</section>
+
+<section class="esteira" id="esteira">
+  <div class="wrap">
+    <span class="eyebrow" data-reveal>Como funciona</span>
+    <h2 data-reveal style="--i:1">Seu novo vendedor que nunca dorme — e a esteira em volta dele.</h2>
+    <p class="lead" data-reveal style="--i:2">O agente 24/7 é o coração. Em volta dele, montamos a operação completa: tráfego trazendo lead, CRM organizando e painel mostrando o resultado.</p>
+    <div class="pipe">
+      <div class="step" data-reveal data-press style="--i:3"><div class="ico">📣</div><h4>Anúncio</h4><p>Tráfego pago em Meta e Google com foco em custo por venda</p></div>
+      <div class="step hl" data-reveal data-press style="--i:4"><div class="ico">⚡</div><h4>IA atende</h4><p>Resposta em segundos, qualquer hora, qualquer canal</p></div>
+      <div class="step" data-reveal data-press style="--i:5"><div class="ico">🎯</div><h4>Qualifica</h4><p>Coleta dados, entende o perfil e prioriza quem compra</p></div>
+      <div class="step" data-reveal data-press style="--i:6"><div class="ico">📅</div><h4>Agenda</h4><p>Marca visita ou reunião direto na agenda do vendedor</p></div>
+      <div class="step" data-reveal data-press style="--i:7"><div class="ico">🔄</div><h4>Follow-up</h4><p>Reengaja quem esfriou com sequências inteligentes</p></div>
+      <div class="step" data-reveal data-press style="--i:8"><div class="ico">📊</div><h4>Venda + dados</h4><p>Tudo registrado no CRM e visível no painel</p></div>
+    </div>
+
+    <div class="demo-fone" data-reveal style="--i:9">
       <div class="phone">
         <div class="screen">
           <div class="chat-head">
-            <div class="av"><svg viewBox="0 0 560 650" style="width:20px;height:23px"><g transform="translate(0.000000,650.000000) scale(0.100000,-0.100000)" fill="#ffffff"><path d="M2726 6289 c-52 -12 -127 -59 -212 -134 -7 -5 -25 -20 -40 -32 -27 -20 -130 -104 -238 -193 -24 -19 -88 -71 -142 -114 -54 -44 -180 -148 -279 -230 -99 -83 -196 -163 -215 -178 -178 -136 -347 -282 -382 -329 -59 -80 -58 -56 -58 -953 0 -518 4 -838 11 -866 9 -41 70 -146 94 -162 14 -9 163 -129 271 -218 50 -41 108 -88 129 -105 22 -16 58 -46 80 -65 23 -19 59 -49 81 -67 21 -17 77 -63 124 -102 47 -39 88 -71 91 -71 4 0 41 28 84 63 43 34 93 73 111 87 62 48 287 235 338 282 l51 47 -30 26 c-17 15 -75 63 -130 107 -55 45 -138 113 -185 152 -47 39 -105 87 -130 107 -25 20 -61 51 -80 69 -19 18 -59 52 -90 76 -92 72 -85 23 -88 604 -2 283 0 530 3 548 8 45 57 96 199 210 67 54 142 115 167 137 26 22 97 81 160 130 62 50 134 108 160 130 200 170 216 172 374 45 106 -85 120 -90 151 -62 10 10 55 47 99 82 44 36 165 135 269 220 l188 155 -38 30 c-20 16 -110 90 -198 162 -89 73 -185 152 -214 175 -29 24 -71 59 -95 78 -193 158 -266 188 -391 159z M3790 5471 c-55 -9 -114 -39 -173 -88 -24 -21 -83 -69 -131 -108 -48 -38 -99 -80 -114 -93 -15 -13 -81 -67 -147 -120 -66 -53 -129 -105 -140 -114 -11 -9 -52 -43 -91 -75 -40 -32 -116 -94 -169 -138 -53 -44 -208 -171 -343 -283 -136 -112 -275 -228 -309 -258 l-63 -55 0 -242 c0 -278 -9 -249 109 -343 41 -32 96 -76 122 -98 l49 -39 37 29 c21 16 45 35 54 44 17 16 161 135 286 237 39 32 118 97 175 145 56 47 141 117 188 154 47 37 133 108 191 158 200 172 376 313 417 335 51 27 167 -2 203 -52 3 -4 19 -18 36 -30 42 -31 309 -246 375 -302 29 -25 58 -49 63 -53 12 -8 124 -98 174 -139 75 -61 71 21 71 -1202 l0 -1093 38 28 c20 15 100 80 177 144 77 64 200 165 273 225 151 123 172 146 208 221 43 91 45 135 42 1039 l-3 860 -31 65 c-35 71 -85 127 -183 205 -35 28 -96 77 -135 110 -39 34 -93 79 -121 100 -27 22 -79 65 -115 95 -36 30 -83 69 -104 85 -21 17 -48 38 -60 49 -11 10 -74 62 -139 115 -66 53 -142 115 -170 138 -29 23 -68 55 -87 70 -19 16 -77 64 -130 107 -162 135 -242 184 -280 175 -3 -1 -25 -5 -50 -8z M814 4752 c-60 -48 -118 -95 -129 -104 -100 -83 -265 -217 -285 -231 -61 -42 -134 -125 -164 -187 l-31 -65 2 -902 2 -902 27 -68 c38 -96 68 -130 238 -266 83 -66 153 -123 156 -126 3 -3 50 -42 105 -86 55 -44 102 -82 105 -85 3 -4 63 -53 135 -111 71 -57 184 -149 251 -204 66 -55 136 -112 155 -127 19 -15 82 -66 140 -114 57 -48 120 -94 139 -102 69 -29 180 -12 227 35 10 10 74 63 142 118 232 188 308 250 397 325 49 41 107 89 128 105 21 17 59 48 85 70 27 22 66 54 87 72 21 17 48 40 59 50 11 10 70 59 130 108 61 49 142 116 181 149 39 34 106 89 150 123 43 35 115 93 159 131 l80 68 2 225 c2 123 0 229 -5 234 -7 11 -159 138 -226 190 -79 62 -68 61 -127 12 -30 -24 -103 -83 -164 -132 -60 -49 -112 -92 -115 -95 -3 -4 -12 -11 -21 -16 -9 -5 -41 -30 -70 -55 -80 -69 -132 -112 -274 -229 -71 -58 -150 -123 -175 -145 -26 -22 -77 -65 -115 -95 -38 -30 -122 -100 -188 -155 -198 -166 -235 -183 -312 -144 -22 12 -43 25 -46 30 -3 6 -19 20 -36 32 -36 25 -286 227 -419 337 -50 41 -120 99 -157 129 -106 86 -97 -20 -97 1218 0 618 -4 1073 -9 1073 -5 0 -58 -39 -117 -88z M3462 4035 c-24 -19 -61 -49 -81 -67 -21 -18 -46 -40 -57 -48 -18 -14 -114 -93 -291 -238 -45 -37 -82 -71 -82 -77 0 -5 36 -39 81 -75 44 -36 94 -77 112 -92 17 -14 74 -61 127 -105 341 -276 398 -326 414 -359 15 -32 16 -91 15 -565 0 -291 -5 -540 -9 -552 -13 -32 -155 -158 -376 -334 -11 -9 -49 -41 -85 -72 -36 -31 -87 -74 -114 -96 -27 -22 -95 -77 -150 -123 -157 -128 -179 -127 -348 9 -62 49 -118 89 -126 89 -8 0 -53 -33 -101 -73 -49 -39 -134 -110 -190 -157 -56 -47 -122 -101 -146 -120 -99 -80 -135 -116 -135 -132 0 -10 3 -18 8 -18 4 0 32 -22 63 -48 31 -26 73 -60 94 -77 22 -16 79 -64 129 -105 164 -137 197 -165 230 -190 18 -14 76 -60 128 -102 187 -153 299 -146 508 33 47 40 107 90 135 112 27 21 74 60 105 87 30 26 89 75 130 109 105 87 163 135 498 412 53 44 108 90 122 102 14 13 54 45 89 72 192 151 242 208 268 308 21 82 19 1673 -2 1745 -17 55 -119 172 -195 223 -19 13 -73 55 -119 94 -46 38 -116 95 -156 125 -39 30 -79 62 -87 70 -9 8 -40 34 -70 57 -29 24 -101 81 -160 128 -58 47 -112 85 -120 84 -7 0 -33 -15 -56 -34z"/></g></svg></div>
+            <div class="av"><svg class="mark" aria-hidden="true"><use href="#sis-mark"/></svg></div>
             <div>
               <div class="nm">Estela · SIS AI</div>
-              <div class="st">online agora</div>
+              <div class="st"><span class="dot"></span> online agora</div>
             </div>
           </div>
           <div class="chat-body" id="chat"></div>
@@ -250,56 +765,27 @@ footer p{font-size:13.5px;color:var(--cinza)}
       <div class="chat-tag"><span class="dot"></span> Estela vendendo às 23h47 de um domingo</div>
     </div>
   </div>
-</header>
-
-<section class="problema">
-  <div class="wrap">
-    <span class="eyebrow">O problema</span>
-    <h2>Todo dia sai dinheiro pelo seu atendimento. Você só não vê acontecer.</h2>
-    <div class="dores">
-      <div class="dor"><span class="num">01</span><h3>O lead chega quando você não está</h3><p>Boa parte das mensagens cai à noite, no domingo, no feriado. Sem resposta na hora, o cliente segue pro concorrente — e não volta.</p></div>
-      <div class="dor"><span class="num">02</span><h3>Velocidade decide a venda</h3><p>Responder em minutos multiplica a chance de fechar. Depois de uma hora, o interesse esfriou e a venda já era.</p></div>
-      <div class="dor"><span class="num">03</span><h3>Cada lead custou dinheiro</h3><p>Você pagou pelo clique. Lead sem resposta é anúncio pago pro concorrente vender.</p></div>
-    </div>
-    <div style="text-align:center;margin-top:48px"><a href="#diagnostico" class="btn">Quero atendimento 24h no meu WhatsApp</a></div>
-  </div>
-</section>
-
-<section class="esteira" id="esteira">
-  <div class="wrap">
-    <span class="eyebrow">Como funciona</span>
-    <h2>Seu novo vendedor que nunca dorme — e a esteira em volta dele.</h2>
-    <p class="lead">O agente 24/7 é o coração. Em volta dele, montamos a operação completa: tráfego trazendo lead, CRM organizando e painel mostrando o resultado.</p>
-    <div class="pipe">
-      <div class="step"><div class="ico">📣</div><h4>Anúncio</h4><p>Tráfego pago em Meta e Google com foco em custo por venda</p></div>
-      <div class="step hl"><div class="ico">⚡</div><h4>IA atende</h4><p>Resposta em segundos, qualquer hora, qualquer canal</p></div>
-      <div class="step"><div class="ico">🎯</div><h4>Qualifica</h4><p>Coleta dados, entende o perfil e prioriza quem compra</p></div>
-      <div class="step"><div class="ico">📅</div><h4>Agenda</h4><p>Marca visita ou reunião direto na agenda do vendedor</p></div>
-      <div class="step"><div class="ico">🔄</div><h4>Follow-up</h4><p>Reengaja quem esfriou com sequências inteligentes</p></div>
-      <div class="step"><div class="ico">📊</div><h4>Venda + dados</h4><p>Tudo registrado no CRM e visível no painel</p></div>
-    </div>
-  </div>
 </section>
 
 <section class="painel" id="painel">
   <div class="wrap">
-    <span class="eyebrow">O sistema por dentro</span>
-    <h2>Tudo que a IA faz, você acompanha em tempo real.</h2>
-    <p class="lead">Enquanto o agente atende, o painel mostra o resultado: quantos leads entraram, quantos foram qualificados, visitas agendadas e o que precisa da sua atenção.</p>
-    <div class="browser">
+    <span class="eyebrow" data-reveal>O sistema por dentro</span>
+    <h2 data-reveal style="--i:1">Tudo que a IA faz, você acompanha em tempo real.</h2>
+    <p class="lead" data-reveal style="--i:2">Enquanto o agente atende, o painel mostra o resultado: quantos leads entraram, quantos foram qualificados, visitas agendadas e o que precisa da sua atenção.</p>
+    <div class="browser" data-reveal style="--i:3">
       <div class="bar"><i></i><i></i><i></i><span class="url">painel.sisai.com.br/dashboard</span></div>
       <div class="body">
         <div class="head-row">
           <div><h3>Painel da sua loja</h3><p>Estoque, leads e agente — em tempo real</p></div>
-          <span class="pill"><span class="d"></span> Agente IA ativo agora</span>
+          <span class="pill"><span class="dot"></span> Agente IA ativo agora</span>
         </div>
         <div class="kpis">
-          <div class="kpi"><span>Veículos disponíveis 🏍️</span><b>14</b><br><small>estoque sincronizado</small></div>
-          <div class="kpi"><span>Leads no CRM 🎯</span><b>169</b><br><small>26 novos hoje</small></div>
-          <div class="kpi hl"><span>Leads qualificados 🔥</span><b>104</b><br><small>62% de conversão</small></div>
-          <div class="kpi"><span>Visitas / test rides 📅</span><b>13</b><br><small>agendadas pela IA</small></div>
-          <div class="kpi warn"><span>Aguardando você ⚠️</span><b>54</b><br><small>a IA sinaliza sua vez</small></div>
-          <div class="kpi ok"><span>Agente IA 🤖</span><b>ON</b><br><small>atendendo 24/7 agora</small></div>
+          <div class="kpi" data-press><span class="k">Veículos disponíveis 🏍️</span><b>14</b><small>estoque sincronizado</small></div>
+          <div class="kpi" data-press><span class="k">Leads no CRM 🎯</span><b>169</b><small>26 novos hoje</small></div>
+          <div class="kpi hl" data-press><span class="k">Leads qualificados 🔥</span><b>104</b><small>62% de conversão</small></div>
+          <div class="kpi" data-press><span class="k">Visitas / test rides 📅</span><b>13</b><small>agendadas pela IA</small></div>
+          <div class="kpi warn" data-press><span class="k">Aguardando você ⚠️</span><b>54</b><small>a IA sinaliza sua vez</small></div>
+          <div class="kpi ok" data-press><span class="k">Agente IA 🤖</span><b>ON</b><small>atendendo 24/7 agora</small></div>
         </div>
         <div class="pfeats">
           <div class="pfeat"><div class="pi">📱</div><div><h4>Na palma da mão</h4><p>Acompanhe do celular, de qualquer lugar — sem depender de relatório de ninguém.</p></div></div>
@@ -311,24 +797,45 @@ footer p{font-size:13.5px;color:var(--cinza)}
   </div>
 </section>
 
-
+<section class="sobre" id="sobre">
+  <div class="wrap">
+    <div class="sobre-foto" data-reveal>
+      <picture>
+        <source type="image/webp" srcset="felipe.webp 1x, felipe@2x.webp 2x">
+        <img src="felipe.jpg" width="900" height="900" loading="lazy" decoding="async"
+             alt="Felipe, fundador da SIS AI, sentado, de camisa polo preta com o logo da SIS AI bordado.">
+      </picture>
+    </div>
+    <div>
+      <span class="eyebrow" data-reveal>Quem está por trás</span>
+      <h2 data-reveal style="--i:1">Quem é Felipe</h2>
+      <p class="sobre-papel" data-reveal style="--i:2">Empreendedor, estrategista e especialista em crescimento</p>
+      <div class="sobre-texto">
+        <p data-reveal style="--i:3">Há mais de 4 anos, atuo no digital ajudando empresas a atrair clientes, automatizar processos e vender mais através de tecnologia, tráfego e inteligência artificial.</p>
+        <p data-reveal style="--i:4">À frente da SIS AI, uno estratégia comercial, marketing e IA para criar operações mais rápidas, eficientes e previsíveis.</p>
+        <p data-reveal style="--i:5">Meu foco não é apenas gerar leads. É construir sistemas que atendem, qualificam, acompanham e transformam oportunidades em vendas.</p>
+      </div>
+      <p class="assinatura" data-reveal style="--i:6">Tecnologia para vender mais.<br>Estratégia para crescer melhor.</p>
+    </div>
+  </div>
+</section>
 
 <section class="captura" id="diagnostico">
   <div class="wrap">
     <div>
-      <span class="eyebrow">Diagnóstico gratuito</span>
-      <h2>Coloque um agente 24/7 no seu WhatsApp ainda esta semana.</h2>
-      <p class="lead">Preencha o formulário e receba um diagnóstico gratuito — sem compromisso:</p>
-      <ul class="check">
-        <li>Calculamos quantos leads você perde fora do horário comercial</li>
-        <li>Simulação real da Estela atendendo o seu negócio</li>
-        <li>Plano de implantação com investimento e prazo definidos</li>
+      <span class="eyebrow" data-reveal>Diagnóstico gratuito</span>
+      <h2 data-reveal style="--i:1">Coloque um agente 24/7 no seu WhatsApp ainda esta semana.</h2>
+      <p class="lead" data-reveal style="--i:2">Preencha o formulário e receba um diagnóstico gratuito — sem compromisso:</p>
+      <ul class="check" data-reveal style="--i:3">
+        <li><svg aria-hidden="true"><use href="#ic-check"/></svg>Calculamos quantos leads você perde fora do horário comercial</li>
+        <li><svg aria-hidden="true"><use href="#ic-check"/></svg>Simulação real da Estela atendendo o seu negócio</li>
+        <li><svg aria-hidden="true"><use href="#ic-check"/></svg>Plano de implantação com investimento e prazo definidos</li>
       </ul>
-      <div style="margin-top:28px;background:rgba(139,92,246,.1);border:1px solid rgba(139,92,246,.4);border-radius:14px;padding:20px 22px">
-        <b style="font-family:'Sora';font-size:15.5px">🎁 Bônus de implantação: catálogo digital da sua loja</b>
-        <p style="font-size:14.5px;color:var(--cinza);margin-top:4px">Vitrine online com todo o seu estoque — foto, preço, filtros por categoria e botão direto pro WhatsApp. Você mesmo edita: entrou produto, atualizou na hora. E é dele que a Estela puxa as informações pra atender.</p>
+      <div class="bonus" data-reveal style="--i:4">
+        <b>🎁 Bônus de implantação: catálogo digital da sua loja</b>
+        <p>Vitrine online com todo o seu estoque — foto, preço, filtros por categoria e botão direto pro WhatsApp. Você mesmo edita: entrou produto, atualizou na hora. E é dele que a Estela puxa as informações pra atender.</p>
       </div>
-      <div class="catmock">
+      <div class="catmock card" data-reveal style="--i:5">
         <div class="ch">
           <div class="st"><div class="ini">SL</div><b>Sua Loja<span>catalogo.sisai.com.br/sua-loja</span></b></div>
           <span class="wapill">💬 WhatsApp</span>
@@ -341,20 +848,36 @@ footer p{font-size:13.5px;color:var(--cinza)}
         <div class="cf">Catálogo online · Powered by SIS AI</div>
       </div>
     </div>
-    <form name="leads" id="formlead">
+
+    <form name="leads" id="formlead" class="glass" novalidate data-reveal style="--i:3">
       <h3>Fale com a SIS AI</h3>
-      <div class="field"><label for="nome">Seu nome</label><input id="nome" name="nome" required placeholder="Nome completo"></div>
-      <div class="field"><label for="empresa">Empresa</label><input id="empresa" name="empresa" required placeholder="Nome do seu negócio"></div>
-      <div class="field"><label for="whats">WhatsApp</label><input id="whats" name="whatsapp" required placeholder="(99) 99999-9999" inputmode="tel"></div>
-      <div class="field"><label for="segmento">Segmento</label>
+      <div class="field">
+        <label for="nome">Seu nome</label>
+        <input id="nome" name="nome" required autocomplete="name" placeholder="Nome completo">
+        <span class="err">Preencha seu nome</span>
+      </div>
+      <div class="field">
+        <label for="empresa">Empresa</label>
+        <input id="empresa" name="empresa" required autocomplete="organization" placeholder="Nome do seu negócio">
+        <span class="err">Preencha o nome do seu negócio</span>
+      </div>
+      <div class="field">
+        <label for="whats">WhatsApp</label>
+        <input id="whats" name="whatsapp" required autocomplete="tel-national" inputmode="tel" placeholder="(99) 99999-9999">
+        <span class="err">Informe um WhatsApp com DDD</span>
+      </div>
+      <div class="field">
+        <label for="segmento">Segmento</label>
         <select id="segmento" name="segmento" required>
           <option value="" disabled selected>Selecione</option>
           <option>Loja de motos</option>
           <option>Loja de carros</option>
           <option>Loja de colchões</option>
         </select>
+        <span class="err">Escolha um segmento</span>
       </div>
-      <div class="field"><label for="estoque">Quantidade de produtos no estoque</label>
+      <div class="field">
+        <label for="estoque">Quantidade de produtos no estoque</label>
         <select id="estoque" name="estoque" required>
           <option value="" disabled selected>Selecione</option>
           <option>Até 10</option>
@@ -362,8 +885,9 @@ footer p{font-size:13.5px;color:var(--cinza)}
           <option>30 a 60</option>
           <option>Mais de 60</option>
         </select>
+        <span class="err">Escolha uma faixa de estoque</span>
       </div>
-      <button class="btn" type="submit" id="btnlead">Receber diagnóstico no WhatsApp</button>
+      <button class="btn btn-block" type="submit" id="btnlead" data-press>Receber diagnóstico no WhatsApp</button>
       <p class="priv">Sem spam. Seus dados são usados apenas para o contato do diagnóstico.</p>
     </form>
   </div>
@@ -371,108 +895,445 @@ footer p{font-size:13.5px;color:var(--cinza)}
 
 <footer>
   <div class="wrap">
-    <a class="logo" href="#"><span>SIS <b>AI</b></span></a>
+    <a class="logo" href="#hero">
+      <svg class="mark" aria-hidden="true"><use href="#sis-mark"/></svg>
+      <span class="wordmark">SIS <b>AI</b></span>
+    </a>
     <p>SIS AI — Smart Intelligence Solutions · IA e tráfego trabalhando pelo seu negócio.</p>
   </div>
 </footer>
 
 <script>
-const roteiro=[
-  {c:'in',t:'Oi! Vi o anúncio da CG 160. Ainda tem?',h:'23:47'},
-  {c:'out',t:'Oi! Aqui é a Estela 😊 Temos sim — 3 unidades da CG 160 disponíveis. Prefere na cor vermelha ou preta?',h:'23:47'},
-  {c:'in',t:'Vermelha! Consigo financiar?',h:'23:48'},
-  {c:'out',t:'Consegue! Me passa seu CPF que eu já faço uma simulação de financiamento pra você agora.',h:'23:48'},
-  {c:'in',t:'Boa, vou mandar',h:'23:49'},
-  {c:'out',t:'Perfeito! Enquanto isso, já deixei seu atendimento agendado com o Carlos amanhã às 10h na loja. Te mando a confirmação aqui 📅',h:'23:49'}
-];
-const chat=document.getElementById('chat');
-let i=0;
-function addMsg(){
-  if(i>=roteiro.length){setTimeout(()=>{chat.innerHTML='';i=0;addMsg()},6000);return}
-  const m=roteiro[i];
-  const typing=document.createElement('div');
-  if(m.c==='out'){
-    typing.className='typing';typing.style.display='flex';
-    typing.innerHTML='<i></i><i></i><i></i>';
-    chat.appendChild(typing);
-  }
-  setTimeout(()=>{
-    if(m.c==='out')typing.remove();
-    const d=document.createElement('div');
-    d.className='msg '+m.c;
-    d.innerHTML=m.t+'<span class="t">'+m.h+'</span>';
-    chat.appendChild(d);
-    i++;setTimeout(addMsg, m.c==='out'?1400:1100);
-  }, m.c==='out'?1200:200);
-}
-if(!window.matchMedia('(prefers-reduced-motion: reduce)').matches){addMsg()}
-else{roteiro.forEach(m=>{const d=document.createElement('div');d.className='msg '+m.c;d.style.opacity=1;d.style.transform='none';d.innerHTML=m.t+'<span class="t">'+m.h+'</span>';chat.appendChild(d)})}
-</script>
-
-<script>
+/* ============================================================
+   Motion — um único rAF conduzindo todos os springs.
+   Spring parametrizado como a Apple: response (segundos até o alvo)
+   e damping ratio (1.0 = sem overshoot). Nunca duração fixa.
+   ============================================================ */
 (function(){
-  if(window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-  const hero=document.getElementById('hero'), canvas=document.getElementById('kgrid');
-  const ctx=canvas.getContext('2d');
-  const CELL=55, INFLUENCE=260, MAX_WARP=24, DOTS=28, LERP=0.08;
-  const LINE_BASE={r:255,g:255,b:255,a:0.07};
-  const T={lineActive:{r:139,g:92,b:246,a:0.9},nodeActive:{r:139,g:92,b:246,a:1},glow:'139,92,246',ripple:'167,139,250'};
-  let W=0,H=0,mouse={x:-9999,y:-9999},target={x:-9999,y:-9999},ripples=[];
-  function size(){const r=hero.getBoundingClientRect();W=canvas.width=r.width;H=canvas.height=r.height}
-  size();addEventListener('resize',size);
-  hero.addEventListener('mousemove',e=>{const r=hero.getBoundingClientRect();target={x:e.clientX-r.left,y:e.clientY-r.top}});
-  hero.addEventListener('mouseleave',()=>{target={x:-9999,y:-9999}});
-  hero.addEventListener('click',e=>{const r=hero.getBoundingClientRect();ripples.push({x:e.clientX-r.left,y:e.clientY-r.top,radius:0,opacity:1,born:performance.now()})});
-  const lerpN=(a,b,t)=>a+(b-a)*t;
-  const lerpC=(b,a,t)=>`rgba(${Math.round(lerpN(b.r,a.r,t))},${Math.round(lerpN(b.g,a.g,t))},${Math.round(lerpN(b.b,a.b,t))},${lerpN(b.a,a.a,t).toFixed(3)})`;
-  function warp(gx,gy,col,row,cols,rows){
-    const em=1.5,cp=Math.min(col/em,(cols-1-col)/em,1),rp=Math.min(row/em,(rows-1-row)/em,1),pin=cp*cp*rp*rp;
-    const dx=gx-mouse.x,dy=gy-mouse.y,dist=Math.hypot(dx,dy);
-    const prox=Math.max(0,1-dist/INFLUENCE)*pin;
-    let rx=0,ry=0;
-    for(const r of ripples){const rdx=gx-r.x,rdy=gy-r.y,rd=Math.hypot(rdx,rdy),wv=55,df=rd-r.radius;
-      if(Math.abs(df)<wv){const s=(1-Math.abs(df)/wv)*r.opacity*18*pin,an=Math.atan2(rdy,rdx),sg=df<0?-1:1;
-        rx+=Math.cos(an)*s*sg*-1;ry+=Math.sin(an)*s*sg*-1}}
-    if(dist<INFLUENCE&&dist>0&&pin>0){const t=dist/INFLUENCE,e=t<0.01?0:(1-t)*(1-t)*Math.min(1,dist/60),wa=e*MAX_WARP*pin,an=Math.atan2(dy,dx);
-      return{pt:{x:gx-Math.cos(an)*wa+rx,y:gy-Math.sin(an)*wa+ry},prox}}
-    return{pt:{x:gx+rx,y:gy+ry},prox}
+'use strict';
+
+var reduceMotion = matchMedia('(prefers-reduced-motion: reduce)');
+
+function Spring(value, opts){
+  opts = opts || {};
+  this.v = value; this.to = value; this.vel = 0;
+  this.response = opts.response || 0.4;
+  this.damping = opts.damping == null ? 1 : opts.damping;
+  this.idle = true;
+}
+Spring.prototype.set = function(to, opts){
+  opts = opts || {};
+  this.to = to;
+  if(opts.response != null) this.response = opts.response;
+  if(opts.damping != null) this.damping = opts.damping;
+  if(opts.velocity != null) this.vel = opts.velocity;
+  this.idle = false;
+};
+Spring.prototype.step = function(dt){
+  if(this.idle) return this.v;
+  var w = 2 * Math.PI / this.response, k = w * w, c = 2 * w * this.damping;
+  // subpassos fixos: estabilidade independente do frame rate
+  var n = Math.max(1, Math.ceil(dt / 0.008)), h = dt / n;
+  for(var i = 0; i < n; i++){
+    var a = -k * (this.v - this.to) - c * this.vel;
+    this.vel += a * h;
+    this.v += this.vel * h;
+  }
+  if(Math.abs(this.v - this.to) < 0.0004 && Math.abs(this.vel) < 0.004){
+    this.v = this.to; this.vel = 0; this.idle = true;
+  }
+  return this.v;
+};
+
+var subs = [], running = false, last = 0;
+function tick(now){
+  var dt = Math.min((now - last) / 1000, 0.05);
+  last = now;
+  for(var i = 0; i < subs.length; i++) subs[i](dt, now);
+  requestAnimationFrame(tick);
+}
+function subscribe(fn){
+  subs.push(fn);
+  if(!running){ running = true; last = performance.now(); requestAnimationFrame(tick); }
+}
+
+/* ---- Pressionáveis ----
+   Retorno no pointerdown, não no click. Ida rápida e sem bounce;
+   volta um pouco mais solta, porque soltar é um gesto com inércia. */
+function pressable(el){
+  if(reduceMotion.matches) return;
+  var scale = el.classList.contains('btn') ? 0.965 : 0.985;
+  var s = new Spring(1, { response: 0.4, damping: 1 });
+  var held = false;
+
+  subscribe(function(dt){
+    if(s.idle) return;
+    el.style.setProperty('--press', s.step(dt).toFixed(4));
+  });
+
+  function down(){ held = true; s.set(scale, { response: 0.14, damping: 1 }); }
+  function up(){
+    if(!held) return;
+    held = false;
+    s.set(1, { response: 0.42, damping: 0.72 }); // leve overshoot: houve um gesto
+  }
+  el.addEventListener('pointerdown', down);
+  el.addEventListener('pointerup', up);
+  el.addEventListener('pointercancel', up);
+  el.addEventListener('pointerleave', up);
+}
+document.querySelectorAll('[data-press]').forEach(pressable);
+
+/* ---- Nav: material que aparece conforme o conteúdo passa por baixo ---- */
+(function(){
+  var nav = document.querySelector('nav');
+  var s = new Spring(0, { response: 0.45, damping: 1 });
+  var applied = -1;
+  function onScroll(){ s.set(Math.min(1, window.scrollY / 72)); }
+  subscribe(function(dt){
+    if(s.idle && Math.abs(applied - s.v) < 0.002) return;
+    var v = s.step(dt);
+    applied = v;
+    nav.style.setProperty('--nav-t', v.toFixed(3));
+  });
+  addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+})();
+
+/* ---- Revelação ao rolar ---- */
+(function(){
+  var items = document.querySelectorAll('[data-reveal]');
+  if(reduceMotion.matches || !('IntersectionObserver' in window)){
+    items.forEach(function(el){ el.classList.add('in'); });
+    return;
+  }
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
+    });
+  }, { rootMargin: '0px 0px -12% 0px', threshold: 0.12 });
+  items.forEach(function(el){ io.observe(el); });
+})();
+
+/* ---- Holofote do palco ----
+   Segue o ponteiro por spring. No primeiro movimento o spring é jogado
+   direto na posição do cursor, senão ele entraria voando do canto. */
+(function(){
+  var stage = document.getElementById('stage');
+  if(!stage || reduceMotion.matches) return;
+  var sp = stage.querySelector('.spotlight');
+  if(!sp || !matchMedia('(hover: hover)').matches) return;
+
+  var sx = new Spring(0, { response: 0.5, damping: 1 });
+  var sy = new Spring(0, { response: 0.5, damping: 1 });
+  var primed = false;
+
+  stage.addEventListener('pointermove', function(e){
+    var r = stage.getBoundingClientRect();
+    var x = e.clientX - r.left, y = e.clientY - r.top;
+    if(!primed){ primed = true; sx.v = x; sy.v = y; sp.style.opacity = '1'; }
+    sx.set(x); sy.set(y);
+  });
+  stage.addEventListener('pointerleave', function(){
+    primed = false;
+    sp.style.opacity = '0';
+  });
+
+  subscribe(function(dt){
+    if(sx.idle && sy.idle) return;
+    var half = sp.offsetWidth / 2;
+    sp.style.transform = 'translate3d(' + (sx.step(dt) - half).toFixed(1) + 'px,'
+      + (sy.step(dt) - half).toFixed(1) + 'px,0)';
+  });
+})();
+
+/* ---- Cena 3D (Spline) ----
+   São ~3,4 MB entre runtime e cena. Só carrega quando vale a pena:
+   tela grande, ponteiro de verdade, WebGL disponível, conexão folgada
+   e sem reduced-motion. Fora disso fica o poster, que já é um estado
+   final aceitável — não um erro. */
+(function(){
+  var canvas = document.getElementById('spline3d');
+  var poster = document.getElementById('stage-poster');
+  if(!canvas) return;
+
+  if(reduceMotion.matches) return;
+  if(!matchMedia('(min-width: 60rem)').matches) return;
+  if(!matchMedia('(hover: hover)').matches) return;
+
+  var conn = navigator.connection;
+  if(conn && (conn.saveData || /(^|-)2g$/.test(conn.effectiveType || ''))) return;
+
+  try{
+    var probe = document.createElement('canvas');
+    if(!(probe.getContext('webgl2') || probe.getContext('webgl'))) return;
+  }catch(err){ return; }
+
+  var booted = false;
+  function boot(){
+    if(booted) return;
+    booted = true;
+    import('https://unpkg.com/@splinetool/runtime@1.12.98/build/runtime.js')
+      .then(function(mod){
+        var app = new mod.Application(canvas);
+        return app.load('https://prod.spline.design/kZDDjO5HuC9GJUM2/scene.splinecode');
+      })
+      .then(function(){
+        canvas.classList.add('ready');
+        if(poster) poster.classList.add('hidden');
+      })
+      .catch(function(){ /* silêncio: o poster continua sendo o estado válido */ });
+  }
+
+  // depois da primeira pintura, pra não competir com o LCP do hero
+  if('requestIdleCallback' in window) requestIdleCallback(boot, { timeout: 2500 });
+  else setTimeout(boot, 1500);
+})();
+
+/* ---- Chat da Estela ---- */
+(function(){
+  var roteiro = [
+    { c:'in',  t:'Oi! Vi o anúncio da CG 160. Ainda tem?', h:'23:47' },
+    { c:'out', t:'Oi! Aqui é a Estela 😊 Temos sim — 3 unidades da CG 160 disponíveis. Prefere na cor vermelha ou preta?', h:'23:47' },
+    { c:'in',  t:'Vermelha! Consigo financiar?', h:'23:48' },
+    { c:'out', t:'Consegue! Me passa seu CPF que eu já faço uma simulação de financiamento pra você agora.', h:'23:48' },
+    { c:'in',  t:'Boa, vou mandar', h:'23:49' },
+    { c:'out', t:'Perfeito! Enquanto isso, já deixei seu atendimento agendado com o Carlos amanhã às 10h na loja. Te mando a confirmação aqui 📅', h:'23:49' }
+  ];
+  var chat = document.getElementById('chat');
+
+  function build(m){
+    var d = document.createElement('div');
+    d.className = 'msg ' + m.c;
+    d.textContent = m.t;
+    var t = document.createElement('span');
+    t.className = 't';
+    t.textContent = m.h;
+    d.appendChild(t);
+    return d;
+  }
+
+  if(reduceMotion.matches){
+    roteiro.forEach(function(m){
+      var d = build(m); d.classList.add('shown'); chat.appendChild(d);
+    });
+    return;
+  }
+
+  var i = 0;
+  function next(){
+    if(i >= roteiro.length){
+      setTimeout(function(){ chat.textContent = ''; i = 0; next(); }, 6000);
+      return;
+    }
+    var m = roteiro[i], typing = null;
+    if(m.c === 'out'){
+      typing = document.createElement('div');
+      typing.className = 'typing';
+      typing.style.display = 'flex';
+      typing.innerHTML = '<i></i><i></i><i></i>';
+      chat.appendChild(typing);
+    }
+    setTimeout(function(){
+      if(typing) typing.remove();
+      var d = build(m);
+      chat.appendChild(d);
+      requestAnimationFrame(function(){
+        requestAnimationFrame(function(){ d.classList.add('shown'); });
+      });
+      i++;
+      setTimeout(next, m.c === 'out' ? 1400 : 1100);
+    }, m.c === 'out' ? 1200 : 200);
+  }
+  next();
+})();
+
+/* ---- Grade cinética: só reage ao ponteiro, nunca se move sozinha ---- */
+(function(){
+  if(reduceMotion.matches) return;
+  if(matchMedia('(prefers-reduced-transparency: reduce)').matches) return;
+  var hero = document.getElementById('hero'), canvas = document.getElementById('kgrid');
+  if(!canvas || !canvas.getContext) return;
+  var ctx = canvas.getContext('2d');
+
+  var CELL = 55, INFLUENCE = 250, MAX_WARP = 20, DOTS = 28, LERP = 0.1;
+  var LINE_BASE = { r:0, g:0, b:0, a:0.055 };
+  var T = {
+    lineActive: { r:109, g:63, b:224, a:0.5 },
+    nodeActive: { r:109, g:63, b:224, a:0.8 },
+    glow: '109,63,224',
+    ripple: '109,63,224'
+  };
+  var W = 0, H = 0, dpr = 1;
+  var mouse = { x:-9999, y:-9999 }, target = { x:-9999, y:-9999 }, ripples = [];
+
+  function size(){
+    var r = hero.getBoundingClientRect();
+    dpr = Math.min(window.devicePixelRatio || 1, 2);
+    W = r.width; H = r.height;
+    canvas.width = Math.round(W * dpr);
+    canvas.height = Math.round(H * dpr);
+    canvas.style.width = W + 'px';
+    canvas.style.height = H + 'px';
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  }
+  size();
+  addEventListener('resize', size);
+
+  hero.addEventListener('pointermove', function(e){
+    var r = hero.getBoundingClientRect();
+    target = { x: e.clientX - r.left, y: e.clientY - r.top };
+  });
+  hero.addEventListener('pointerleave', function(){ target = { x:-9999, y:-9999 }; });
+  hero.addEventListener('pointerdown', function(e){
+    var r = hero.getBoundingClientRect();
+    ripples.push({ x: e.clientX - r.left, y: e.clientY - r.top, radius: 0, opacity: 1, born: performance.now() });
+  });
+
+  function lerpN(a, b, t){ return a + (b - a) * t; }
+  function lerpC(b, a, t){
+    return 'rgba(' + Math.round(lerpN(b.r,a.r,t)) + ',' + Math.round(lerpN(b.g,a.g,t)) + ','
+      + Math.round(lerpN(b.b,a.b,t)) + ',' + lerpN(b.a,a.a,t).toFixed(3) + ')';
+  }
+  function warp(gx, gy, col, row, cols, rows){
+    var em = 1.5;
+    var cp = Math.min(col/em, (cols-1-col)/em, 1), rp = Math.min(row/em, (rows-1-row)/em, 1);
+    var pin = cp*cp*rp*rp;
+    var dx = gx - mouse.x, dy = gy - mouse.y, dist = Math.hypot(dx, dy);
+    var prox = Math.max(0, 1 - dist/INFLUENCE) * pin;
+    var rx = 0, ry = 0;
+    for(var i = 0; i < ripples.length; i++){
+      var r = ripples[i];
+      var rdx = gx - r.x, rdy = gy - r.y, rd = Math.hypot(rdx, rdy), wv = 55, df = rd - r.radius;
+      if(Math.abs(df) < wv){
+        var s = (1 - Math.abs(df)/wv) * r.opacity * 16 * pin;
+        var an = Math.atan2(rdy, rdx), sg = df < 0 ? -1 : 1;
+        rx += Math.cos(an) * s * sg * -1;
+        ry += Math.sin(an) * s * sg * -1;
+      }
+    }
+    if(dist < INFLUENCE && dist > 0 && pin > 0){
+      var t = dist / INFLUENCE;
+      var e = t < 0.01 ? 0 : (1-t)*(1-t)*Math.min(1, dist/60);
+      var wa = e * MAX_WARP * pin, ang = Math.atan2(dy, dx);
+      return { pt: { x: gx - Math.cos(ang)*wa + rx, y: gy - Math.sin(ang)*wa + ry }, prox: prox };
+    }
+    return { pt: { x: gx + rx, y: gy + ry }, prox: prox };
   }
   function draw(now){
-    ctx.clearRect(0,0,W,H);
-    ctx.fillStyle='rgba(255,255,255,0.035)';
-    for(let x=DOTS/2;x<W;x+=DOTS)for(let y=DOTS/2;y<H;y+=DOTS){ctx.beginPath();ctx.arc(x,y,0.7,0,7);ctx.fill()}
-    for(let i=ripples.length-1;i>=0;i--){const r=ripples[i],age=(now-r.born)/1000;r.radius=Math.max(0,age*400);r.opacity=Math.max(0,1-age*1.2);if(r.opacity<=0)ripples.splice(i,1)}
-    const cols=Math.max(2,Math.ceil(W/CELL))+1,rows=Math.max(2,Math.ceil(H/CELL))+1,cw=W/(cols-1),ch=H/(rows-1);
-    const pts=[],px=[];
-    for(let r=0;r<rows;r++){pts[r]=[];px[r]=[];for(let c=0;c<cols;c++){const o=warp(c*cw,r*ch,c,r,cols,rows);pts[r][c]=o.pt;px[r][c]=o.prox}}
-    const seg=(p1,p2,a,b)=>{const av=(a+b)/2,t=av*av*(3-2*av);ctx.beginPath();ctx.moveTo(p1.x,p1.y);ctx.lineTo(p2.x,p2.y);ctx.strokeStyle=lerpC(LINE_BASE,T.lineActive,t);ctx.lineWidth=lerpN(0.8,1.5,t);ctx.stroke()};
-    for(let r=0;r<rows;r++)for(let c=0;c<cols-1;c++)seg(pts[r][c],pts[r][c+1],px[r][c],px[r][c+1]);
-    for(let c=0;c<cols;c++)for(let r=0;r<rows-1;r++)seg(pts[r][c],pts[r+1][c],px[r][c],px[r+1][c]);
-    for(let r=0;r<rows;r++)for(let c=0;c<cols;c++){const p=pts[r][c],pr=px[r][c],t=pr*pr*(3-2*pr),rad=lerpN(1.6,3.2,t);
-      if(t>0.3){const gr=rad+lerpN(0,6,(t-0.3)/0.7),g=ctx.createRadialGradient(p.x,p.y,rad*0.5,p.x,p.y,gr);
-        g.addColorStop(0,`rgba(${T.glow},${(t*0.3).toFixed(3)})`);g.addColorStop(1,`rgba(${T.glow},0)`);
-        ctx.beginPath();ctx.arc(p.x,p.y,gr,0,7);ctx.fillStyle=g;ctx.fill()}
-      ctx.beginPath();ctx.arc(p.x,p.y,rad,0,7);ctx.fillStyle=lerpC({r:255,g:255,b:255,a:0.14},T.nodeActive,t);ctx.fill()}
-    for(const r of ripples){ctx.beginPath();ctx.arc(r.x,r.y,Math.max(0,r.radius),0,7);ctx.strokeStyle=`rgba(${T.ripple},${(r.opacity*0.28).toFixed(3)})`;ctx.lineWidth=1.5;ctx.stroke()}
+    ctx.clearRect(0, 0, W, H);
+    ctx.fillStyle = 'rgba(0,0,0,0.05)';
+    for(var x = DOTS/2; x < W; x += DOTS)
+      for(var y = DOTS/2; y < H; y += DOTS){ ctx.beginPath(); ctx.arc(x, y, 0.7, 0, 7); ctx.fill(); }
+
+    for(var i = ripples.length - 1; i >= 0; i--){
+      var r = ripples[i], age = (now - r.born)/1000;
+      r.radius = Math.max(0, age * 400);
+      r.opacity = Math.max(0, 1 - age * 1.2);
+      if(r.opacity <= 0) ripples.splice(i, 1);
+    }
+
+    var cols = Math.max(2, Math.ceil(W/CELL)) + 1, rows = Math.max(2, Math.ceil(H/CELL)) + 1;
+    var cw = W/(cols-1), ch = H/(rows-1);
+    var pts = [], px = [];
+    for(var rr = 0; rr < rows; rr++){
+      pts[rr] = []; px[rr] = [];
+      for(var cc = 0; cc < cols; cc++){
+        var o = warp(cc*cw, rr*ch, cc, rr, cols, rows);
+        pts[rr][cc] = o.pt; px[rr][cc] = o.prox;
+      }
+    }
+    function seg(p1, p2, a, b){
+      var av = (a + b)/2, t = av*av*(3 - 2*av);
+      ctx.beginPath(); ctx.moveTo(p1.x, p1.y); ctx.lineTo(p2.x, p2.y);
+      ctx.strokeStyle = lerpC(LINE_BASE, T.lineActive, t);
+      ctx.lineWidth = lerpN(0.7, 1.4, t);
+      ctx.stroke();
+    }
+    for(var r1 = 0; r1 < rows; r1++) for(var c1 = 0; c1 < cols-1; c1++) seg(pts[r1][c1], pts[r1][c1+1], px[r1][c1], px[r1][c1+1]);
+    for(var c2 = 0; c2 < cols; c2++) for(var r2 = 0; r2 < rows-1; r2++) seg(pts[r2][c2], pts[r2+1][c2], px[r2][c2], px[r2+1][c2]);
+
+    for(var r3 = 0; r3 < rows; r3++) for(var c3 = 0; c3 < cols; c3++){
+      var p = pts[r3][c3], pr = px[r3][c3], t3 = pr*pr*(3 - 2*pr), rad = lerpN(1.4, 3, t3);
+      if(t3 > 0.3){
+        var gr = rad + lerpN(0, 6, (t3 - 0.3)/0.7);
+        var g = ctx.createRadialGradient(p.x, p.y, rad*0.5, p.x, p.y, gr);
+        g.addColorStop(0, 'rgba(' + T.glow + ',' + (t3*0.16).toFixed(3) + ')');
+        g.addColorStop(1, 'rgba(' + T.glow + ',0)');
+        ctx.beginPath(); ctx.arc(p.x, p.y, gr, 0, 7); ctx.fillStyle = g; ctx.fill();
+      }
+      ctx.beginPath(); ctx.arc(p.x, p.y, rad, 0, 7);
+      ctx.fillStyle = lerpC({ r:0, g:0, b:0, a:0.11 }, T.nodeActive, t3);
+      ctx.fill();
+    }
+    for(var k = 0; k < ripples.length; k++){
+      var rp = ripples[k];
+      ctx.beginPath(); ctx.arc(rp.x, rp.y, Math.max(0, rp.radius), 0, 7);
+      ctx.strokeStyle = 'rgba(' + T.ripple + ',' + (rp.opacity*0.24).toFixed(3) + ')';
+      ctx.lineWidth = 1.2; ctx.stroke();
+    }
   }
-  function loop(now){mouse.x=lerpN(mouse.x,target.x,LERP);mouse.y=lerpN(mouse.y,target.y,LERP);draw(now);requestAnimationFrame(loop)}
-  requestAnimationFrame(loop);
+  subscribe(function(dt, now){
+    mouse.x = lerpN(mouse.x, target.x, LERP);
+    mouse.y = lerpN(mouse.y, target.y, LERP);
+    draw(now);
+  });
 })();
-</script>
 
+/* ---- Formulário: máscara, validação inline e envio pro WhatsApp ---- */
+(function(){
+  var form = document.getElementById('formlead');
+  var whats = document.getElementById('whats');
 
-<script>
-document.getElementById('formlead').addEventListener('submit', function(e){
-  e.preventDefault();
-  const d=new FormData(e.target);
-  const msg=`Olá! Quero o diagnóstico gratuito da SIS AI 🚀
-👤 Nome: ${d.get('nome')}
-🏪 Empresa: ${d.get('empresa')}
-📱 WhatsApp: ${d.get('whatsapp')}
-🏷️ Segmento: ${d.get('segmento')}
-📦 Estoque: ${d.get('estoque')}`;
-  window.location.href='https://wa.me/5598985512253?text='+encodeURIComponent(msg);
-});
+  whats.addEventListener('input', function(){
+    var d = whats.value.replace(/\D/g, '').slice(0, 11);
+    var out = d;
+    if(d.length > 2) out = '(' + d.slice(0,2) + ') ' + d.slice(2);
+    if(d.length > 7) out = '(' + d.slice(0,2) + ') ' + d.slice(2, d.length > 10 ? 7 : 6) + '-' + d.slice(d.length > 10 ? 7 : 6);
+    whats.value = out;
+  });
+
+  function valid(el){
+    if(el === whats) return whats.value.replace(/\D/g, '').length >= 10;
+    return el.value.trim() !== '';
+  }
+  function check(el){
+    var field = el.closest('.field');
+    if(!field) return true;
+    var ok = valid(el);
+    field.classList.toggle('invalid', !ok);
+    return ok;
+  }
+
+  form.querySelectorAll('input,select').forEach(function(el){
+    el.addEventListener('blur', function(){ check(el); });
+    // ao corrigir, o erro some na hora — feedback contínuo, não só no submit
+    el.addEventListener('input', function(){
+      var field = el.closest('.field');
+      if(field && field.classList.contains('invalid') && valid(el)) field.classList.remove('invalid');
+    });
+    el.addEventListener('change', function(){ check(el); });
+  });
+
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    var fields = Array.prototype.slice.call(form.querySelectorAll('input,select'));
+    var firstBad = null;
+    fields.forEach(function(el){ if(!check(el) && !firstBad) firstBad = el; });
+    if(firstBad){ firstBad.focus(); return; }
+
+    var d = new FormData(form);
+    var msg = 'Olá! Quero o diagnóstico gratuito da SIS AI 🚀\n'
+      + '👤 Nome: ' + d.get('nome') + '\n'
+      + '🏪 Empresa: ' + d.get('empresa') + '\n'
+      + '📱 WhatsApp: ' + d.get('whatsapp') + '\n'
+      + '🏷️ Segmento: ' + d.get('segmento') + '\n'
+      + '📦 Estoque: ' + d.get('estoque');
+    window.location.href = 'https://wa.me/5598985512253?text=' + encodeURIComponent(msg);
+  });
+})();
+
+})();
 </script>
 </body>
 </html>
